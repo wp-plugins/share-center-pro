@@ -1,7 +1,7 @@
 
 === Share Center Pro ===
 Contributors: Bit51
-Donate link: http://bit51.com/software/social-share-pro/
+Donate link: http://bit51.com/software/share-center-pro/
 Tags: Google+, Google plus, Twitter, Facebook, linkedIn, share, widget, social
 Requires at least: 3.0
 Tested up to: 3.2
@@ -28,8 +28,8 @@ Add sharing buttons for Google +1, Facebook Like, Twitter, LinkedIn and StumbleU
 
 == Changelog ==
 
-<a href="http://bit51.com/software/social-share-pro/changelog/">Click here for the full change log</a>
+<a href="http://bit51.com/software/share-center-pro/changelog/">Click here for the full change log</a>
 
 == Support ==
 
-Please visit the <a href="http://bit51.com/software/social-share-pro/">Homepage</a> for support and more
+Please visit the <a href="http://bit51.com/software/share-center-pro/">Homepage</a> for support and more

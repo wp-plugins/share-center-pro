@@ -1,10 +1,10 @@
 <?php
 /*
-	Plugin Name: Social Share Pro
-	Plugin URI: http://bit51.com/
+	Plugin Name: Share Center Pro
+	Plugin URI: http://bit51.com/software/share-center-pro/
 	Description: Add common social sharing services in a widget to be used anywhere on your page or at the bottom of your posts or other content.
 	Version: Dev
-	Text Domain: social-share-pro
+	Text Domain: share-center-pro
 	Domain Path: /languages
 	Author: Bit51.com
 	Author URI: http://bit51.com
@@ -47,7 +47,7 @@ function ssp_valid_input($input) {
  * @return null 
  */
 function SSP_admin_menu() {
-	add_options_page('Social Share Pro',  __('Social Share Pro','social-share-pro'), 'manage_options',  'social-share-pro', 'SSP_admin');
+	add_options_page('Share Center Pro',  __('Share Center Pro','share-center-pro'), 'manage_options',  'share-center-pro', 'SSP_admin');
 }
 
 /**
@@ -55,7 +55,7 @@ function SSP_admin_menu() {
  * @return null 
  */
 function SSP_admin() {
-	include(trailingslashit(WP_PLUGIN_DIR) . 'social-share-pro/admin.php');
+	include(trailingslashit(WP_PLUGIN_DIR) . 'share-center-pro/admin.php');
 }
 
 //load admin menu
@@ -76,7 +76,7 @@ function SSP_plugin_action_links($links, $file) {
 	 }
 	 
 	if ($file == $this_plugin) { //if plugin is active add a link
-		$settings_link = '<a href="/wp-admin/admin.php?page=social-share-pro">' . __('Settings', 'social-share-pro') . '</a>';
+		$settings_link = '<a href="/wp-admin/admin.php?page=share-center-pro">' . __('Settings', 'share-center-pro') . '</a>';
 		array_unshift($links, $settings_link);
 	}
 	
@@ -93,9 +93,9 @@ add_filter('plugin_action_links','SSP_plugin_action_links', 10, 2 );
 function SSP_languages() {
 	if ( function_exists('load_plugin_textdomain') ) {
 		if ( !defined('WP_PLUGIN_DIR') ) {
-			load_plugin_textdomain('social-share-pro', str_replace( ABSPATH, '', dirname(__FILE__) ) . '/languages');
+			load_plugin_textdomain('share-center-pro', str_replace( ABSPATH, '', dirname(__FILE__) ) . '/languages');
 		} else {
-			load_plugin_textdomain('social-share-pro', false, dirname( plugin_basename(__FILE__) ) . '/languages');
+			load_plugin_textdomain('share-center-pro', false, dirname( plugin_basename(__FILE__) ) . '/languages');
 		}
 	}
 }
@@ -110,7 +110,7 @@ add_action('init', 'SSP_languages');
 function SSP_footer_scripts() {
 	global $sspWidget;
 
-	//Retrieve Social Share Pro Options
+	//Retrieve Share Center Pro Options
 	$SSP_options = get_option('SSP_options');
 	
 	//Define the scripts
@@ -122,7 +122,7 @@ function SSP_footer_scripts() {
 	
 	//Only load scripts where necessary
 	if ($sspWidget || (is_archive() && $SSP_options['show_archive'] == 1) || (is_page() && $SSP_options['show_page'] == 1) || (is_front_page() && $SSP_options['show_front'] == 1) || (is_home() && $SSP_options['show_home'] == 1) || (is_search() &&  $SSP_options['show_search'] == 1) || (is_single() && $SSP_options['show_single'] == 1)) {
-		echo "\n<!--## Begin Social Share Pro Scripts ## -->\n";	
+		echo "\n<!--## Begin Share Center Pro Scripts ## -->\n";	
 		if ($SSP_options['show_digg'] == 1) {
 			echo $diggScript;
 		}
@@ -138,7 +138,7 @@ function SSP_footer_scripts() {
 		if ($SSP_options['show_twitter'] == 1) {
 			echo $twitterScript;
 		}
-		echo "<!--## End Social Share Pro Scripts ## -->\n";	
+		echo "<!--## End Share Center Pro Scripts ## -->\n";	
 	}
 }
 
@@ -151,7 +151,7 @@ add_action('wp_footer', 'SSP_footer_scripts');
   **/
 function SSP_social_buttons() {
 
-	//Retrieve Social Share Pro Options
+	//Retrieve Share Center Pro Options
 	$SSP_options = get_option('SSP_options');
 	
 	//Get the URLs
@@ -163,9 +163,9 @@ function SSP_social_buttons() {
 	//initialize the buttons
 	$buttons = '';
 	
-	$buttons .= "\n<!--## Begin Social Share Pro Scripts ## -->\n";	
+	$buttons .= "\n<!--## Begin Share Center Pro Scripts ## -->\n";	
 	$buttons .= "<div class=\"sspcleartop\"></div>\n";
-	$buttons .= "<ul id=\"social-share-pro\">\n";
+	$buttons .= "<ul id=\"share-center-pro\">\n";
 	if (strlen($SSP_options['heading']) > 1) {
 		$buttons .= "<h2 id=\"sspHeading\">" . $SSP_options['heading'] . "</h2>\n";
 	}
@@ -190,7 +190,7 @@ function SSP_social_buttons() {
 	}
 	$buttons .= "</ul>\n";
 	$buttons .= "<div class=\"sspclear\"></div>\n";
-	$buttons .= "<!--## End Social Share Pro Scripts ## -->\n";	
+	$buttons .= "<!--## End Share Center Pro Scripts ## -->\n";	
 	
 	return $buttons;
 }
@@ -201,7 +201,7 @@ function SSP_social_buttons() {
   * @param Object
   **/
 function SSP_buttons_in_content($content) {
-	//Retrieve Social Share Pro Options
+	//Retrieve Share Center Pro Options
 	$SSP_options = get_option('SSP_options');
 	
 	if ((is_archive() && $SSP_options['show_archive'] == 1) || (is_page() && $SSP_options['show_page'] == 1) || (is_front_page() && $SSP_options['show_front'] == 1) || (is_home() && $SSP_options['show_home'] == 1) || (is_search() &&  $SSP_options['show_search'] == 1) || (is_single() && $SSP_options['show_single'] == 1)) {
@@ -217,8 +217,8 @@ add_filter('the_content', 'SSP_buttons_in_content', 25);
 //Add buttons to a widget
 class SSP_Widget extends WP_Widget {
 	function SSP_Widget() {
-		$widget_ops = array('classname' => 'SSP_Widget', 'description' => 'A widget for social sharing using the Social Share Pro Settings' );
-		$this->WP_Widget('SSP_Widget', 'Social Share Pro', $widget_ops);
+		$widget_ops = array('classname' => 'SSP_Widget', 'description' => 'A widget for social sharing using the Share Center Pro Settings' );
+		$this->WP_Widget('SSP_Widget', 'Share Center Pro', $widget_ops);
 	}
 	
 	function widget($args, $instance) {
@@ -245,7 +245,7 @@ class SSP_Widget extends WP_Widget {
 		$comments_title = strip_tags($instance['comments_title']);
 ?>
 			<p><label for="<?php echo $this->get_field_id('title'); ?>">Title: <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo attribute_escape($title); ?>" /></label></p>
-			<p><?php _e('For more configuration visit the ','social-share-pro'); ?><a href="/wp-admin/admin.php?page=social-share-pro"><?php _e('Options','social-share-pro'); ?></a><?php _e(' page.','social-share-pro'); ?></p>
+			<p><?php _e('For more configuration visit the ','share-center-pro'); ?><a href="/wp-admin/admin.php?page=share-center-pro"><?php _e('Options','share-center-pro'); ?></a><?php _e(' page.','share-center-pro'); ?></p>
 <?php
 	}
 }
@@ -280,7 +280,7 @@ function ssp_fb_thumbnail() {
 		$thumbnail = '';
 
 	if ($SSP_options['show_facebook'] == 1) {
-		echo "<!--## Begin Social Share Pro Scripts ## -->\n" .
+		echo "<!--## Begin Share Center Pro Scripts ## -->\n" .
 			"<meta property=\"og:title\" content=\"" . get_the_title($post->ID) . "\"/>\n" .
 			"<meta property=\"og:type\" content=\"article\"/>\n" .
 			"<meta property=\"og:url\" content=\"" . get_permalink($post->ID) . "\"/>\n" .
@@ -288,7 +288,7 @@ function ssp_fb_thumbnail() {
 			"<meta property=\"og:site_name\" content=\"" . get_bloginfo() . "\"/>\n" .
 			"<meta property=\"og:author\" content=\"" . get_the_author() . "\" />\n" . 
 			"<meta property=\"og:description\"content=\"" . get_bloginfo('description') . "\"/>\n" .
-			"<!--## End Social Share Pro Scripts ## -->\n";	
+			"<!--## End Share Center Pro Scripts ## -->\n";	
 	}
 }
 
@@ -300,8 +300,8 @@ add_action( 'wp_head', 'ssp_fb_thumbnail' );
   * @return null
   **/
 function ssp_add_stylesheet() {
-	wp_register_style('social-share-pro', WP_PLUGIN_URL . '/social-share-pro/style.css');
-	wp_enqueue_style( 'social-share-pro');
+	wp_register_style('share-center-pro', WP_PLUGIN_URL . '/share-center-pro/style.css');
+	wp_enqueue_style( 'share-center-pro');
 }
 
 //Register the stylesheet
