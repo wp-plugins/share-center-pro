@@ -5,7 +5,7 @@ Donate link: http://bit51.com/software/share-center-pro/
 Tags: Google+, Google plus, Twitter, Facebook, linkedIn, share, widget, social
 Requires at least: 3.0
 Tested up to: 3.2
-Stable tag: 1.0
+Stable tag: 1.1
 
 Add sharing buttons for Google +1, Facebook Like, Twitter, LinkedIn and StumbleUpon.
 
