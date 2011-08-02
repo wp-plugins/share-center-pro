@@ -3,17 +3,17 @@
 	clear: both;
 }
 
-#social-share-pro {
+#share-center-pro{
 	display: inline;
 }
 
-#social-share-pro li {
+#share-center-proli {
 	float: left;
 	list-style: none;
 	width: 90px;
 }
 
-.widget-wrap #social-share-pro li {
+.widget-wrap #share-center-proli {
 	float: left;
 	height: 90px;
 	list-style: none;
