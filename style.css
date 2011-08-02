@@ -1,0 +1,21 @@
+.sspcleartop,
+.sspclear {
+	clear: both;
+}
+
+#share-center-pro{
+	display: inline;
+}
+
+#share-center-pro li {
+	float: left;
+	list-style: none;
+	width: 90px;
+}
+
+.widget-wrap #share-center-pro li {
+	float: left;
+	height: 90px;
+	list-style: none;
+	width: 70px;
+}
