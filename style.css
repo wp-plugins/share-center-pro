@@ -7,13 +7,13 @@
 	display: inline;
 }
 
-#share-center-proli {
+#share-center-pro li {
 	float: left;
 	list-style: none;
 	width: 90px;
 }
 
-.widget-wrap #share-center-proli {
+.widget-wrap #share-center-pro li {
 	float: left;
 	height: 90px;
 	list-style: none;
