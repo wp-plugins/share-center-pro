@@ -279,7 +279,7 @@ function ssp_fb_thumbnail() {
 	else
 		$thumbnail = '';
 
-	if ($SSP_options['show_facebook'] == 1) {
+	if ($SSP_options['show_facebook'] == 1 && (is_single() || is_page())) {
 		echo "<!--## Begin Share Center Pro Scripts ## -->\n" .
 			"<meta property=\"og:title\" content=\"" . get_the_title($post->ID) . "\"/>\n" .
 			"<meta property=\"og:type\" content=\"article\"/>\n" .
