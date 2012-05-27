@@ -4,8 +4,8 @@ Contributors: Bit51
 Donate link: http://bit51.com/software/share-center-pro/
 Tags: Google+, Google plus, Twitter, Facebook, linkedIn, share, widget, social
 Requires at least: 3.0
-Tested up to: 3.2
-Stable tag: 1.2
+Tested up to: 3.4
+Stable tag: 1.2.1
 
 Add sharing buttons for Google +1, Facebook Like, Twitter, LinkedIn and StumbleUpon.
 
@@ -28,8 +28,22 @@ Add sharing buttons for Google +1, Facebook Like, Twitter, LinkedIn and StumbleU
 
 == Changelog ==
 
-<a href="http://bit51.com/software/share-center-pro/changelog/">Click here for the full change log</a>
+= 1.2.1 =
 
-== Support ==
+* Returned changelog and support forums to WordPress.org
 
-Please visit the <a href="http://bit51.com/software/share-center-pro/">Homepage</a> for support and more
+= 1.2 =
+
+* Minor bugfixes for HTML validation
+
+= 1.1.1 =
+
+* Another attempt to fix the bug from 1.1 as the previous commit lost the changes
+
+= 1.1 =
+
+* Fixed bug that prevented CSS from executing correctly
+
+= 1.0 =
+
+* Initial Release
