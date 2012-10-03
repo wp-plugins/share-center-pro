@@ -20,7 +20,7 @@ if ( ! class_exists( 'bit51_scp' )) {
 
 	class bit51_scp extends Bit51 {
 	
-		public $pluginversion 	= '0001'; //current plugin version
+		public $pluginversion 	= '0002'; //current plugin version
 	
 		//important plugin information
 		public $hook 			= 'share-center-pro';
@@ -44,18 +44,16 @@ if ( ! class_exists( 'bit51_scp' )) {
 					'linkedin' 				=> '0',
 					'twitter'				=> '0',
 					'buffer'				=> '0',
-					'archives'				=> '0',
-					'pages'					=> '0',
+					'archive'				=> '0',
+					'page'					=> '0',
 					'front'					=> '0',
 					'home'					=> '0',
 					'search'				=> '0',
 					'single'				=> '0',
-					'belowpost'				=> '0',
 					'twitteruser'			=> ''
 				)
 			)
 		);
-		public $tabs;
 
 		function __construct() {
 
@@ -88,51 +86,78 @@ if ( ! class_exists( 'bit51_scp' )) {
 				new scp_setup( 'activate' );
 			}
 
-			//Register footer scripts
+			//require widget info
+			require_once( plugin_dir_path( __FILE__ ) . 'inc/widget.php' );
+
+			//register the widget
+			add_action( 'widgets_init', array( &$this, 'scp_loadwidget' ) );
+
+			//Enqueue javascripts
 			add_action( 'wp_enqueue_scripts', array( &$this, 'scp_footerscripts' ) );
 
-			//add to content
+			//add to button output to content that isn't a widget
 			add_filter( 'the_content', array( &$this, 'scp_addtocontent' ), 25 );
 
-			//Register the stylesheet
+			//Enqueue the stylesheet
 			add_action( 'wp_print_styles', array( &$this, 'scp_addstylesheet' ) );
+
+			//Add facebook thumbnail to header
+			add_action( 'wp_head', array( &$this, 'scp_addfbmeta' ) );
 
 		}
 
 		/**
-		  * Load required scripts in the footer
+		  * Add the facebook META data to the head
+		  *
 		  * @return null
-		  */
-		function scp_footerscripts() {
-
-			global $scpoptions, $scpwidget;
+		  **/
+		function scp_addfbmeta() {
 			
-			//Only load scripts where necessary
-			if ( $scpWidget || ( is_archive() && $scpoptions['archive'] == 1 ) || ( is_page() && $scpoptions['page'] == 1 ) || ( is_front_page() && $scpoptions['front'] == 1 ) || ( is_home() && $scpoptions['home'] == 1 ) || ( is_search() &&  $scpoptions['search'] == 1 ) || ( is_single() && $scpoptions['single'] == 1 ) ) {
+			global $scpoptions, $posts, $post;
+			
 
-				if ( $scpoptions['digg'] == 1 ) {
-					wp_enqueue_script( 'digg', 'http://widgets.digg.com/buttons.js', false, false, true );
+			$thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'single-post-thumbnail' );
+
+			if ( is_array( $thumbnail ) && strlen( $thumbnail[0] ) > 1 ) {
+
+				$thumbnail = $thumbnail[0];
+
+			} else {
+
+				//get a thumbnail
+				$content = $posts[0]->post_content; 
+				
+				$output = preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $content, $matches );
+
+				if ( $output > 0 ) {
+					$thumbnail = $matches[1][0];
+				} else {
+					$thumbnail = '';
 				}
 
-				if ( $scpoptions['facebook'] == 1 ) {
-					wp_enqueue_script( 'facebook', 'http://connect.facebook.net/en_US/all.js#xfbml=1', false, false, true );
+			}
+
+			//only add if FB is active and it is a signle or page
+
+			if ( $scpoptions['facebook'] == 1 && ( is_single() || is_page() ) ) {
+				
+				echo "<!--## Begin Share Center Pro Scripts ## -->\n" .
+					"<meta property=\"og:title\" content=\"" . get_the_title( $post->ID ) . "\"/>\n" .
+					"<meta property=\"og:type\" content=\"article\"/>\n" .
+					"<meta property=\"og:url\" content=\"" . get_permalink( $post->ID ) . "\"/>\n";
+					
+				if ( strlen( $thumbnail ) > 1 ) { //only display thumbnail if an image is used
+					echo "<meta property=\"og:image\" content=\"http://" . $thumbnail . "\"/>\n";
 				}
 
-				if ( $scpoptions['google'] == 1 ) {
-					wp_enqueue_script( 'google', 'https://apis.google.com/js/plusone.js', false, false, true );
-				}	
-
-				if ( $scpoptions['linkedin'] == 1 ) {
-					wp_enqueue_script( 'linkedin', 'http://platform.linkedin.com/in.js', false, false, true );
-				}	
-
-				if ( $scpoptions['twitter'] == 1 ) {
-					wp_enqueue_script( 'twitter', 'http://platform.twitter.com/widgets.js', false, false, true );
+				echo "<meta property=\"og:site_name\" content=\"" . get_bloginfo() . "\"/>\n";
+				
+				if ( strlen( get_the_author() > 1 ) ) { //only display author if needed
+					echo "<meta property=\"og:author\" content=\"" . get_the_author() . "\" />\n";
 				}
-
-				if ( $scpoptions['buffer'] == 1 ) {
-					wp_enqueue_script( 'buffer', 'http://static.bufferapp.com/js/button.js', false, false, true );
-				}
+				
+				echo "<meta property=\"og:description\" content=\"" . get_bloginfo( 'description' ) . "\"/>\n" .
+					"<!--## End Share Center Pro Scripts ## -->\n";	
 
 			}
 
@@ -140,20 +165,67 @@ if ( ! class_exists( 'bit51_scp' )) {
 
 		/**
 		 * Enqueue style sheet
+		 *
 		 * @return null
 		 **/
 		function scp_addstylesheet() {
+
 			wp_register_style( 'share-center-pro', SCP_PU . 'inc/style.css' );
 			wp_enqueue_style( 'share-center-pro' );
+			
 		}
 
 		/**
-		 * Add social buttons in standard content (posts, pages, etc)
+		  * Create a filter to add buttons to the content if not in a widget
+		  *
+		  * @return Object
+		  * @param Object
+		  **/
+		function scp_addtocontent( $content ) {
+			
+			global $scpoptions;
+			
+			//if the buttons should be on the current content then add them to the end of it
+			if ( ( is_archive() && $scpoptions['archive'] == 1 ) || ( is_page() && $scpoptions['page'] == 1 ) || ( is_front_page() && $scpoptions['front'] == 1 ) || ( is_home() && $scpoptions['home'] == 1 ) || ( is_search() &&  $scpoptions['search'] == 1 ) || ( is_single() && $scpoptions['single'] == 1 ) ) {
+				return $content . $this->scp_social_buttons();
+			} else {
+				return $content;
+			}
+
+		}
+
+		/**
+		  * Load required javascripts in the footer
+		  *
+		  * @return null
+		  */
+		function scp_footerscripts() {
+
+			global $scpoptions;
+			
+			//load the footer script
+			wp_enqueue_script( 'facebook', SCP_PU . 'inc/share.js', array( 'jquery' ), false, true );
+
+		}
+
+		/**
+		 * Load the widget
+		 * @return Null
+		 **/
+		function scp_loadwidget() {
+
+			register_widget( 'SCP_Widget' );
+
+		}
+
+		/**
+		 * Create the social button output
+		 *
 		 * @return null
 		 **/
 		function scp_social_buttons() {
 
-			global $scpoptions;
+			global $scpoptions, $post;
 			
 			//Get the URLs
 			$full_url = urlencode( get_permalink( $post->ID ) );
@@ -169,32 +241,31 @@ if ( ! class_exists( 'bit51_scp' )) {
 			$buttons .= "<ul id=\"share-center-pro\">\n";
 
 			if ( strlen( $scpoptions['header'] ) > 1 ) {
-				$buttons .= "<h2 id=\"scpHeading\">" . $scpoptions['header'] . "</h2>\n";
+				$buttons .= "<span class=\"scpHeading\">" . $scpoptions['header'] . "</span>\n";
 			}
 
 			if ( $scpoptions['buffer'] == 1 ) {
-				$buttons .= "<li id=\"scpBuffer\"><a href=\"http://bufferapp.com/add\" class=\"buffer-add-button\" data-count=\"vertical\"></a></li>\n";
+				$buttons .= "<li class=\"scpBuffer\"><a href=\"http://bufferapp.com/add\" class=\"buffer-add-button\" data-count=\"vertical\"></a></li>\n";
 			}
 
 			if ( $scpoptions['digg'] == 1 ) {
-				$buttons .= "<li id=\"scpDigg\"><a class=\"DiggThisButton DiggMedium\"></a></li>\n";
+				$buttons .= "<li class=\"scpDigg\"><a class=\"DiggThisButton DiggMedium\"></a></li>\n";
 			}
 
 			if ( $scpoptions['facebook'] == 1 ) {
-				$buttons .= "<li id=\"scpFacebook\"><fb:like href=\"" . $full_url . "\" send=\"false\" layout=\"box_count\" width=\"\" show_faces=\"false\" font=\"arial\"></fb:like></li>\n";
+				$buttons .= "<li class=\"scpFacebook\"><fb:like href=\"" . $full_url . "\" send=\"false\" layout=\"box_count\" width=\"\" show_faces=\"false\" font=\"arial\"></fb:like></li>\n";
 			}
 
 			if ( $scpoptions['google'] == 1 ) {
-				$buttons .= "<li id=\"scpGp\"><g:plusone size=\"tall\"></g:plusone></li>\n";
+				$buttons .= "<li class=\"scpGp\"><g:plusone size=\"tall\"></g:plusone></li>\n";
 			}	
 
 			if ( $scpoptions['linkedin'] == 1 ) {
-				$buttons .= "<li id=\"scpLi\"><script type=\"in/share\" data-counter=\"top\"></script></li>\n";
+				$buttons .= "<li class=\"scpLi\"><script type=\"in/share\" data-counter=\"top\"></script></li>\n";
 			}	
 
 			if ( $scpoptions['twitter'] == 1 ) {
-				$buttons .= "<script type=\"text/javascript\" src=\"http://platform.twitter.com/widgets.js\"></script>\n";
-				$buttons .= "<li id=\"scpTwitter\"><a href=\"http://twitter.com/share\" class=\"twitter-share-button\"  data-url=\"" . get_permalink() . "\" data-counturl=\"" . get_permalink() . "\" data-text=\"" . get_the_title() . "\" data-count=\"vertical\" data-via=\"" . $twitteruser . "\"></a></li>\n";
+				$buttons .= "<li class=\"scpTwitter\"><a href=\"http://twitter.com/share\" class=\"twitter-share-button\"  data-url=\"" . get_permalink() . "\" data-counturl=\"" . get_permalink() . "\" data-text=\"" . get_the_title() . "\" data-count=\"vertical\" data-via=\"" . $twitteruser . "\"></a></li>\n";
 			}
 
 			$buttons .= "</ul>\n";
@@ -204,27 +275,11 @@ if ( ! class_exists( 'bit51_scp' )) {
 			return $buttons;
 
 		}
-
-		/**
-		  * Create the filter to add buttons to content
-		  * @return Object
-		  * @param Object
-		  **/
-		function scp_addtocontent( $content ) {
-			
-			global $scpoptions;
-			
-			if (  $scpoptions['belowpost'] == 1 && ( ( is_archive() && $scpoptions['archive'] == 1 ) || ( is_page() && $scpoptions['page'] == 1 ) || ( is_front_page() && $scpoptions['front'] == 1 ) || ( is_home() && $scpoptions['home'] == 1 ) || ( is_search() &&  $scpoptions['search'] == 1 ) || ( is_single() && $scpoptions['single'] == 1 ) ) ) {
-				return $content . $this->scp_social_buttons();
-			} else {
-				return $content;
-			}
-
-		}
 		
 	}
 
 }
 
 //create plugin object
-new bit51_scp();
+global $bit51scp; 
+$bit51scp = new bit51_scp();

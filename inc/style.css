@@ -10,12 +10,19 @@
 #share-center-pro li {
 	float: left;
 	list-style: none;
-	width: 90px;
+	width: 60px;
 }
 
-.widget-wrap #share-center-pro li {
+.SCP_Widget #share-center-pro li {
 	float: left;
 	height: 90px;
 	list-style: none;
 	width: 70px;
 }
+
+.scpHeading {
+	clear: both;
+	float: left;
+	margin-bottom: 5px;
+	width: 95%;
+} 

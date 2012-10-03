@@ -83,7 +83,7 @@ if (!class_exists( 'scp_admin' ) ) {
 							<input type="checkbox" name="bit51_scp[twitter]" id="twitter" value="1" <?php if ( $scpoptions['twitter'] == 1 ) echo "checked"; ?> /> <label for="twitter"><a href="http://www.twitter.com" target="_blank">Twitter</a></label><br />
 						</td>
 						<td width="50%">
-							<h4><?php _e( 'Where to show buttons', $this->hook ); ?></h4>
+							<h4><?php _e( 'Where to show buttons (if not using widget)', $this->hook ); ?></h4>
 							<p><?php __( 'Pick which pages and posts you would like buttons to appear on. If only using the widget leave these all unchecked.', $this->hook ); ?></p>
 							<input type="checkbox" name="bit51_scp[archive]" id="archive" value="1" <?php if ( $scpoptions['archive'] == 1 ) echo "checked"; ?> /> <label for="archive"> <?php _e( 'Show on Archives', $this->hook ); ?></label><br />
 							<input type="checkbox" name="bit51_scp[page]" id="page" value="1" <?php if ( $scpoptions['page'] == 1 ) echo "checked"; ?> /> <label for="page"> <?php _e( 'Show on Pages', $this->hook ); ?></label><br />
@@ -95,9 +95,8 @@ if (!class_exists( 'scp_admin' ) ) {
 					</tr>
 					<tr valign="top">
 						<td colspan="2">
-							<label for="belowpost"> <?php _e( 'Show below the content (if not using a widget)', $this->hook ); ?></label> <input type="checkbox" name="bit51_scp[belowpost]" id="belowpost" value="1" <?php if ( $scpoptions['belowpost'] == 1 ) echo "checked"; ?> /><br />
-							<label for"header"><?php _e( 'Enter a title for the widget or a header if in the bottom of posts (if desired)', $this->hook ); ?></label><input name="bit51_scp[header]" id="header" value="<?php echo $scpoptions['header']; ?>" type="text"><br />
-							<label for"twitteruser"><?php _e( 'Enter your twitter username (for link tracking)', $this->hook ); ?></label><input name="bit51_scp[twitteruser]" id="twitteruser" value="<?php echo $scpoptions['twitteruser']; ?>" type="text"><br />
+							<label for"header"><?php _e( 'Enter text to appear before the sharing buttons (if needed)', $this->hook ); ?></label> <input name="bit51_scp[header]" id="header" value="<?php echo $scpoptions['header']; ?>" type="text"><br />
+							<label for"twitteruser"><?php _e( 'Enter your twitter username (for link tracking)', $this->hook ); ?></label> <input name="bit51_scp[twitteruser]" id="twitteruser" value="<?php echo $scpoptions['twitteruser']; ?>" type="text"><br />
 						</td>
 					</tr>
 				</table>
@@ -111,6 +110,20 @@ if (!class_exists( 'scp_admin' ) ) {
 		 */
 		function scp_val_options( $input ) {
 			
+			//make sure boolean options are set
+			$input['buffer'] = isset( $input['buffer'] ) ? $input['buffer'] : '0';
+			$input['facebook'] = isset( $input['facebook'] ) ? $input['facebook'] : '0';
+			$input['google'] = isset( $input['google'] ) ? $input['google'] : '0';
+			$input['linkedin'] = isset( $input['linkedin'] ) ? $input['linkedin'] : '0';
+			$input['digg'] = isset( $input['digg'] ) ? $input['digg'] : '0';
+			$input['twitter'] = isset( $input['twitter'] ) ? $input['twitter'] : '0';
+			$input['archive'] = isset( $input['archive'] ) ? $input['archive'] : '0';
+			$input['front'] = isset( $input['front'] ) ? $input['front'] : '0';
+			$input['home'] = isset( $input['home'] ) ? $input['home'] : '0';
+			$input['page'] = isset( $input['page'] ) ? $input['page'] : '0';
+			$input['search'] = isset( $input['search'] ) ? $input['search'] : '0';
+			$input['single'] = isset( $input['single'] ) ? $input['single'] : '0';
+
 			$input['header'] = sanitize_text_field( $input['header'] );
 			$input['twitteruser'] = sanitize_text_field( $input['twitteruser'] );
 			if ( strstr( $input['twitteruser'], '@' ) ) {

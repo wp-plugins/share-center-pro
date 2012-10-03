@@ -112,8 +112,8 @@ if ( ! class_exists( 'scp_setup' ) ) {
 				$scpoptions['linkedin'] = isset( $oldoptions['show_linkedin'] ) ? $oldoptions['show_linkedin'] : '0';
 				$scpoptions['twitter'] = isset( $oldoptions['show_twitter'] ) ? $oldoptions['show_twitter'] : '0';
 				$scpoptions['twitteruser'] = isset( $oldoptions['twitter_user'] ) ? $oldoptions['twitter_user'] : '';
-				$scpoptions['archives'] = isset( $oldoptions['show_archive'] ) ? $oldoptions['show_archive'] : '0';
-				$scpoptions['pages'] = isset( $oldoptions['show_page'] ) ? $oldoptions['show_page'] : '0';
+				$scpoptions['archive'] = isset( $oldoptions['show_archive'] ) ? $oldoptions['show_archive'] : '0';
+				$scpoptions['page'] = isset( $oldoptions['show_page'] ) ? $oldoptions['show_page'] : '0';
 				$scpoptions['front'] = isset( $oldoptions['show_front'] ) ? $oldoptions['show_front'] : '0';
 				$scpoptions['home'] = isset( $oldoptions['show_home'] ) ? $oldoptions['show_home'] : '0';
 				$scpoptions['search'] = isset( $oldoptions['show_search'] ) ? $oldoptions['show_search'] : '0';
