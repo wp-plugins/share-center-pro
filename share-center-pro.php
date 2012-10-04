@@ -237,38 +237,39 @@ if ( ! class_exists( 'bit51_scp' )) {
 			$buttons = '';
 			
 			$buttons .= "\n<!--## Begin Share Center Pro Scripts ## -->\n";	
-			$buttons .= "<div class=\"scpcleartop\"></div>\n";
-			$buttons .= "<ul id=\"share-center-pro\">\n";
+			$buttons .= "<div class=\"scpclear\"></div>\n";
+			$buttons .= "<div id=\"share-center-pro\">\n";
 
 			if ( strlen( $scpoptions['header'] ) > 1 ) {
-				$buttons .= "<span class=\"scpHeading\">" . $scpoptions['header'] . "</span>\n";
+				$buttons .= "<div class=\"scpHeading\">" . $scpoptions['header'] . "</div>\n";
 			}
 
 			if ( $scpoptions['buffer'] == 1 ) {
-				$buttons .= "<li class=\"scpBuffer\"><a href=\"http://bufferapp.com/add\" class=\"buffer-add-button\" data-count=\"vertical\"></a></li>\n";
+				$buttons .= "<div class=\"scpBuffer\"><a href=\"http://bufferapp.com/add\" class=\"buffer-add-button\" data-count=\"vertical\"></a></div>\n";
 			}
 
 			if ( $scpoptions['digg'] == 1 ) {
-				$buttons .= "<li class=\"scpDigg\"><a class=\"DiggThisButton DiggMedium\"></a></li>\n";
+				$buttons .= "<div class=\"scpDigg\"><a class=\"DiggThisButton DiggMedium\"></a></div>\n";
 			}
 
 			if ( $scpoptions['facebook'] == 1 ) {
-				$buttons .= "<li class=\"scpFacebook\"><fb:like href=\"" . $full_url . "\" send=\"false\" layout=\"box_count\" width=\"\" show_faces=\"false\" font=\"arial\"></fb:like></li>\n";
+				$buttons .= "<div class=\"scpFacebook\"><fb:like href=\"" . $full_url . "\" send=\"false\" layout=\"box_count\" width=\"450\" show_faces=\"false\" font=\"arial\"></fb:like></div>\n";
 			}
 
 			if ( $scpoptions['google'] == 1 ) {
-				$buttons .= "<li class=\"scpGp\"><g:plusone size=\"tall\"></g:plusone></li>\n";
+				$buttons .= "<div class=\"scpGoogle\"><g:plusone size=\"tall\"></g:plusone></div>\n";
 			}	
 
 			if ( $scpoptions['linkedin'] == 1 ) {
-				$buttons .= "<li class=\"scpLi\"><script type=\"in/share\" data-counter=\"top\"></script></li>\n";
+				$buttons .= "<div class=\"scpLinkedin\"><script type=\"in/share\" data-counter=\"top\"></script></div>\n";
 			}	
 
 			if ( $scpoptions['twitter'] == 1 ) {
-				$buttons .= "<li class=\"scpTwitter\"><a href=\"http://twitter.com/share\" class=\"twitter-share-button\"  data-url=\"" . get_permalink() . "\" data-counturl=\"" . get_permalink() . "\" data-text=\"" . get_the_title() . "\" data-count=\"vertical\" data-via=\"" . $twitteruser . "\"></a></li>\n";
+				$buttons .= "<div class=\"scpTwitter\"><a href=\"http://twitter.com/share\" class=\"twitter-share-button\"  data-url=\"" . get_permalink() . "\" data-counturl=\"" . get_permalink() . "\" data-text=\"" . get_the_title() . "\" data-count=\"vertical\" data-via=\"" . $twitteruser . "\"></a></div>\n";
 			}
 
-			$buttons .= "</ul>\n";
+			$buttons .= "<span class=\"stretch\"></span>\n";
+			$buttons .= "</div>\n";
 			$buttons .= "<div class=\"scpclear\"></div>\n";
 			$buttons .= "<!--## End Share Center Pro Scripts ## -->\n";	
 			

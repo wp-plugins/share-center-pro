@@ -16,20 +16,28 @@ if ( ! class_exists( 'SCP_Widget' ) ) {
 		
 		function widget( $args, $instance ) {
 
-			global $bit51scp;
+			if ( is_page() || is_single() ) {
 
-			extract( $args, EXTR_SKIP );
+				global $bit51scp;
 
-			echo $before_widget;
+				extract( $args, EXTR_SKIP );
 
-			$title = empty( $instance['title'] ) ? ' ' : apply_filters( 'widget_title', $instance['title'] );
+				echo $before_widget;
 
-			if ( !empty( $title ) ) { 
-				echo $before_title . $title . $after_title; 
+				$title = empty( $instance['title'] ) ? ' ' : apply_filters( 'widget_title', $instance['title'] );
+
+				if ( !empty( $title ) ) { 
+					echo $before_title . $title . $after_title; 
+				}
+
+				echo $bit51scp->scp_social_buttons();
+				echo $after_widget;
+
+			} else {
+
+				echo '';
+
 			}
-
-			echo $bit51scp->scp_social_buttons();
-			echo $after_widget;
 
 		}
 		
