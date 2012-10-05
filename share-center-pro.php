@@ -20,7 +20,7 @@ if ( ! class_exists( 'bit51_scp' )) {
 
 	class bit51_scp extends Bit51 {
 	
-		public $pluginversion 	= '0002'; //current plugin version
+		public $pluginversion 	= '0003'; //current plugin version
 	
 		//important plugin information
 		public $hook 			= 'share-center-pro';
@@ -38,7 +38,7 @@ if ( ! class_exists( 'bit51_scp' )) {
 				'bit51_scp' 			=> array(
 					'callback' 				=> 'scp_val_options',
 					'header' 				=> '',
-					'digg' 					=> '0',
+					'reddit' 					=> '0',
 					'facebook' 				=> '0',
 					'google' 				=> '0',
 					'linkedin' 				=> '0',
@@ -122,9 +122,8 @@ if ( ! class_exists( 'bit51_scp' )) {
 
 				$thumbnail = $thumbnail[0];
 
-			} else {
+			} else { //get a thumbnail from an image in the post
 
-				//get a thumbnail
 				$content = $posts[0]->post_content; 
 				
 				$output = preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $content, $matches );
@@ -228,7 +227,15 @@ if ( ! class_exists( 'bit51_scp' )) {
 			global $scpoptions, $post;
 			
 			//Get the URLs
-			$full_url = urlencode( get_permalink( $post->ID ) );
+			$short_url = get_post_meta( $post->ID, '_yoast_bitlylink', true );
+			$full_url = get_permalink( $post->ID );
+			
+			if ( strlen( $short_url ) < 1 ) {
+				$share_url = $full_url;
+			} else {
+				$share_url = $short_url;
+			}
+			
 			
 			//get the twitter username
 			$twitteruser = stripslashes( $scpoptions['twitteruser'] );
@@ -245,27 +252,32 @@ if ( ! class_exists( 'bit51_scp' )) {
 			}
 
 			if ( $scpoptions['buffer'] == 1 ) {
-				$buttons .= "<div class=\"scpBuffer\"><a href=\"http://bufferapp.com/add\" class=\"buffer-add-button\" data-count=\"vertical\"></a></div>\n";
-			}
-
-			if ( $scpoptions['digg'] == 1 ) {
-				$buttons .= "<div class=\"scpDigg\"><a class=\"DiggThisButton DiggMedium\"></a></div>\n";
+				$buttons .= "<div class=\"scpBuffer\"><a href=\"http://bufferapp.com/add\" class=\"buffer-add-button\" data-url=\"" . $share_url . "\"data-count=\"vertical\" data-via=\"" . $twitteruser . "\"></a></div>\n";
 			}
 
 			if ( $scpoptions['facebook'] == 1 ) {
-				$buttons .= "<div class=\"scpFacebook\"><fb:like href=\"" . $full_url . "\" send=\"false\" layout=\"box_count\" width=\"450\" show_faces=\"false\" font=\"arial\"></fb:like></div>\n";
+				$buttons .= "<div class=\"scpFacebook\"><fb:like href=\"" . urlencode( $share_url ) . "\" send=\"false\" layout=\"box_count\" width=\"450\" show_faces=\"false\" font=\"arial\"></fb:like></div>\n";
 			}
 
 			if ( $scpoptions['google'] == 1 ) {
-				$buttons .= "<div class=\"scpGoogle\"><g:plusone size=\"tall\"></g:plusone></div>\n";
+				$buttons .= "<div class=\"scpGoogle\"><g:plusone size=\"tall\" href=\"" . $share_url . "\"></g:plusone></div>\n";
 			}	
 
 			if ( $scpoptions['linkedin'] == 1 ) {
-				$buttons .= "<div class=\"scpLinkedin\"><script type=\"in/share\" data-counter=\"top\"></script></div>\n";
+				$buttons .= "<div class=\"scpLinkedin\"><script type=\"in/share\" data-counter=\"top\" url=\"" . $share_url . "\"></script></div>\n";
 			}	
 
+			if ( $scpoptions['reddit'] == 1 ) {
+				$buttons .= "<div class=\"scpReddit\" id=\"redditDiv\">\n";
+				$buttons .= "<script type=\"text/javascript\">\n";
+				$buttons .= "reddit_url='" . $share_url . "';\n";
+				$buttons .= "reddit_title='" . get_the_title() . "';\n";
+				$buttons .= "</script>\n";
+				$buttons .= "</div>\n";
+			}
+
 			if ( $scpoptions['twitter'] == 1 ) {
-				$buttons .= "<div class=\"scpTwitter\"><a href=\"http://twitter.com/share\" class=\"twitter-share-button\"  data-url=\"" . get_permalink() . "\" data-counturl=\"" . get_permalink() . "\" data-text=\"" . get_the_title() . "\" data-count=\"vertical\" data-via=\"" . $twitteruser . "\"></a></div>\n";
+				$buttons .= "<div class=\"scpTwitter\"><a href=\"http://twitter.com/share\" class=\"twitter-share-button\"  data-url=\"" . $share_url . "\" data-counturl=\"" . $full_url . "\" data-text=\"" . get_the_title() . "\" data-count=\"vertical\" data-via=\"" . $twitteruser . "\"></a></div>\n";
 			}
 
 			$buttons .= "<span class=\"stretch\"></span>\n";

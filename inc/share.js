@@ -3,7 +3,9 @@
     var tag = 'script';
 
     //insert facebook script into header (or it won't work)
-    var widgetScript, firstjs = document.getElementsByTagName( tag )[0];
+    var widgetScript;
+    var firstjs = document.getElementsByTagName( tag )[0];
+    var redditDiv = document.getElementById( 'redditDiv' );
 
     if ( jQuery( 'div.scpBuffer' ).length ) {
 
@@ -16,14 +18,19 @@
 
     }
 
-    if ( jQuery( 'div.scpDigg' ).length ) {
+    if ( jQuery( 'div.scpReddit' ).length ) {
 
         widgetScript = document.createElement( tag ); 
-        widgetScript.id = 'scp-Digg';
-        widgetScript.async = 'true';
+        var redditContent = '';
+        document.write = function( widgetScript ) {
+            redditContent += widgetScript;
+        };
         widgetScript.type = 'text/javascript';
-        widgetScript.src = '//widgets.digg.com/buttons.js';
-        firstjs.parentNode.insertBefore( widgetScript, firstjs );
+        widgetScript.src = 'http://www.reddit.com/static/button/button2.js';
+        widgetScript.onload = function() {
+            redditDiv.innerHTML = redditContent;
+        };
+        redditDiv.appendChild( widgetScript );
 
     }
 
