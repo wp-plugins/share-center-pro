@@ -59,7 +59,10 @@ if (!class_exists( 'scp_admin' ) ) {
 		 * Create instructions block
 		 */
 		function install_instructions() {
-			
+			?>
+			<p><?php _e( 'Use the settings below to determine which services you want and where on your site you want them to appear. Note that if you use the Share Center Pro widget it will only show up on individual pages and posts regardless of the settings you choose below.', $this->hook ); ?></p>
+			<p><?php _e( 'If you would like to share a short URL instead of the full URL to your content please use the ', $this->hook ); ?><a href="http://wordpress.org/extend/plugins/bitly-shortlinks/" target="_blank">Bit.ly Shortlinks</a><?php _e( ' plugin by ', $this->hook ); ?><a href="http://yoast.com" target="_blank">Yoast</a><?php _e( ' which will allow you to use a standard or custom bit.ly domain to share shorlinks.', $this->hook ); ?></p>
+			<?php
 		}
 		
 		/**
@@ -91,6 +94,7 @@ if (!class_exists( 'scp_admin' ) ) {
 							<input type="checkbox" name="bit51_scp[home]" id="home" value="1" <?php if ( $scpoptions['home'] == 1 ) echo "checked"; ?> /> <label for="home"> <?php _e( 'Show on Homepage</strong', $this->hook ); ?>></label><br />
 							<input type="checkbox" name="bit51_scp[search]" id="search" value="1" <?php if ( $scpoptions['search'] == 1 ) echo "checked"; ?> /> <label for="search"> <?php _e( 'Show on Search Results', $this->hook ); ?></label><br />
 							<input type="checkbox" name="bit51_scp[single]" id="single" value="1" <?php if ( $scpoptions['single'] == 1 ) echo "checked"; ?> /> <label for="single"> <?php _e( 'Show on Single Posts', $this->hook ); ?></label><br />
+							<p><?php _e( 'Note: The widget will only show on single posts and pages regardless of what you choose above.', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
