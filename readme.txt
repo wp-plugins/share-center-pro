@@ -2,19 +2,33 @@
 === Share Center Pro ===
 Contributors: Bit51
 Donate link: http://bit51.com/software/share-center-pro/
-Tags: Google+, Google plus, Twitter, Facebook, linkedIn, share, widget, social
+Tags: Google+, Google plus, Twitter, Facebook, linkedIn, Reddit, Buffer, asynchronous, performance, bit.ly, shortlink, share, widget, social
 Requires at least: 3.0
 Tested up to: 3.4.2
 Stable tag: 1.2.1
 
-Add sharing buttons for Google +1, Facebook Like, Twitter, LinkedIn and StumbleUpon.
+Adds asynchronous (won't slow your site down) sharing buttons for Google plus, Facebook, Twitter, LinkedIn, Buffer, and Reddit.
 
 == License ==  
 Released under the terms of the GNU General Public License. 
 
 == Description ==
 
-Add sharing buttons for Google +1, Facebook Like, Twitter, LinkedIn and StumbleUpon. Unlike other plugins, sharing buttons can be put in a widget that can be displayed in any widgetized area of the page.
+Add sharing buttons for Buffer, Facebook, Google +1, LinkedIn, Reddit, and Twitter
+
+= The Fastest Social Sharing Plugin for WordPress =
+
+= Features =
+
+* Loads javascripts asynchronously so it won'y slow down your site
+* <a href="http://www.bufferapp.com">Buffer Button</a>
+* <a href="http://www.facebook.com">Facebook Like Button</a>
+* <a href="http://plus.google.com">Google +1 Button</a>
+* <a href="http://www.linkedin.com">LinkedIn Button</a>
+* <a href="http://www.reddit.com">Reddit Button</a>
+* <a href="http://www.twitter.com">Twitter Button</a>
+* Works with the <a href="">Bit.ly Shortlinks</a> plugin to provide <a href="">Bit.ly</a> shortlinks including custom domains
+* Can be appended to content or used as a widget
 
 == Installation ==
 
@@ -26,7 +40,28 @@ Add sharing buttons for Google +1, Facebook Like, Twitter, LinkedIn and StumbleU
 
 == Frequently Asked Questions ==
 
+= Why can't I see the widget on every page? =
+* The widget can only be shown on the individual pages or posts regardless of other settings
+
+= Can I change the styles? =
+* Yes, all output is well broken down to allow for easy CSS theming.
+
+== Screenshots ==
+
+1. Easy to use settings get you set up fast.
+2. Display buttons below content.
+3. Display buttons anywhere you want with a widget.
+
 == Changelog ==
+
+= 2.0 =
+* Removed Stumpleupon button
+* Added Reddit Button
+* Added Buffer Button
+* Better CSS
+* Now uses Bit51.com plugin framework
+* Asynchronously loads all javascript
+* Works with Bit.ly Shorlinks to share shortlinks
 
 = 1.2.1 =
 
