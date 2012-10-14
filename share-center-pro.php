@@ -20,7 +20,7 @@ if ( ! class_exists( 'bit51_scp' )) {
 
 	class bit51_scp extends Bit51 {
 	
-		public $pluginversion 	= '0003'; //current plugin version
+		public $pluginversion 	= '0004'; //current plugin version
 	
 		//important plugin information
 		public $hook 			= 'share-center-pro';
@@ -38,7 +38,7 @@ if ( ! class_exists( 'bit51_scp' )) {
 				'bit51_scp' 			=> array(
 					'callback' 				=> 'scp_val_options',
 					'header' 				=> '',
-					'reddit' 					=> '0',
+					'pinterest' 			=> '0',
 					'facebook' 				=> '0',
 					'google' 				=> '0',
 					'linkedin' 				=> '0',
@@ -267,13 +267,8 @@ if ( ! class_exists( 'bit51_scp' )) {
 				$buttons .= "<div class=\"scpLinkedin\"><script type=\"in/share\" data-counter=\"top\" url=\"" . $share_url . "\"></script></div>\n";
 			}	
 
-			if ( $scpoptions['reddit'] == 1 ) {
-				$buttons .= "<div class=\"scpReddit\" id=\"redditDiv\">\n";
-				$buttons .= "<script type=\"text/javascript\">\n";
-				$buttons .= "reddit_url='" . $share_url . "';\n";
-				$buttons .= "reddit_title='" . get_the_title() . "';\n";
-				$buttons .= "</script>\n";
-				$buttons .= "</div>\n";
+			if ( $scpoptions['pinterest'] == 1 ) {
+				$buttons .="<div class=\"scpPinterest\"><a href=\"http://pinterest.com/pin/create/button/?url=" . urlencode( $share_url ) . "&media=" . urlencode( wp_get_attachment_url( get_post_thumbnail_id( $post->ID ) ) ) . "\" class=\"pin-it-button\" count-layout=\"vertical\"><img border=\"0\" src=\"//assets.pinterest.com/images/PinExt.png\" title=\"Pin It\" /></a></div>\n";
 			}
 
 			if ( $scpoptions['twitter'] == 1 ) {

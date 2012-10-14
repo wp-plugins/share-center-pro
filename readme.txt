@@ -2,7 +2,7 @@
 === Share Center Pro ===
 Contributors: Bit51
 Donate link: http://bit51.com/software/share-center-pro/
-Tags: Google+, Google plus, Twitter, Facebook, linkedIn, Reddit, Buffer, asynchronous, performance, bit.ly, shortlink, share, widget, social
+Tags: Google+, Google plus, Twitter, Facebook, linkedIn, Pinterest, Buffer, asynchronous, performance, bit.ly, shortlink, share, widget, social
 Requires at least: 3.0
 Tested up to: 3.4.2
 Stable tag: 2.0
@@ -14,7 +14,7 @@ Released under the terms of the GNU General Public License.
 
 == Description ==
 
-Add sharing buttons for Buffer, Facebook, Google +1, LinkedIn, Reddit, and Twitter
+Add sharing buttons for Buffer, Facebook, Google +1, LinkedIn, Pinterest, and Twitter
 
 = The Fastest Social Sharing Plugin for WordPress =
 
@@ -25,7 +25,7 @@ Add sharing buttons for Buffer, Facebook, Google +1, LinkedIn, Reddit, and Twitt
 * <a href="http://www.facebook.com">Facebook Like Button</a>
 * <a href="http://plus.google.com">Google +1 Button</a>
 * <a href="http://www.linkedin.com">LinkedIn Button</a>
-* <a href="http://www.reddit.com">Reddit Button</a>
+* <a href="http://www.pinterest.com">Pinterest Button</a>
 * <a href="http://www.twitter.com">Twitter Button</a>
 * Works with the <a href="">Bit.ly Shortlinks</a> plugin to provide <a href="">Bit.ly</a> shortlinks including custom domains
 * Can be appended to content or used as a widget
@@ -53,6 +53,10 @@ Add sharing buttons for Buffer, Facebook, Google +1, LinkedIn, Reddit, and Twitt
 3. Display buttons anywhere you want with a widget.
 
 == Changelog ==
+
+= 2.1 =
+* Removed Reddit button (async was too problematic)
+* Added Pinterest button
 
 = 2.0 =
 * Removed Stumpleupon button

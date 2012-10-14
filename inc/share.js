@@ -18,19 +18,14 @@
 
     }
 
-    if ( jQuery( 'div.scpReddit' ).length ) {
+    if ( jQuery( 'div.scpPinterest' ).length ) {
 
         widgetScript = document.createElement( tag ); 
-        var redditContent = '';
-        document.write = function( widgetScript ) {
-            redditContent += widgetScript;
-        };
+        widgetScript.id = 'scp-Pinterest';
+        widgetScript.async = 'true';
         widgetScript.type = 'text/javascript';
-        widgetScript.src = 'http://www.reddit.com/static/button/button2.js';
-        widgetScript.onload = function() {
-            redditDiv.innerHTML = redditContent;
-        };
-        redditDiv.appendChild( widgetScript );
+        widgetScript.src = '//assets.pinterest.com/js/pinit.js';
+        firstjs.parentNode.insertBefore( widgetScript, firstjs );
 
     }
 

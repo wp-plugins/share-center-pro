@@ -82,7 +82,7 @@ if (!class_exists( 'scp_admin' ) ) {
 							<input type="checkbox" name="bit51_scp[facebook]" id="facebook" value="1" <?php if ( $scpoptions['facebook'] == 1 ) echo "checked"; ?> /> <label for="facebook"><a href="http://www.facebook.com" target="_blank">Facebook</a></label><br />
 							<input type="checkbox" name="bit51_scp[google]" id="google" value="1" <?php if ( $scpoptions['google'] == 1 ) echo "checked"; ?> /> <label for="google"><a href="http://plus.google.com" target="_blank">Google +1</a></label><br />
 							<input type="checkbox" name="bit51_scp[linkedin]" id="linkedin" value="1" <?php if ( $scpoptions['linkedin'] == 1 ) echo "checked"; ?> /> <label for="linkedin"><a href="http://www.linkedin.com" target="_blank">LinkedIn</a></label><br />
-							<input type="checkbox" name="bit51_scp[reddit]" id="reddit" value="1" <?php if ( $scpoptions['reddit'] == 1 ) echo "checked"; ?> /> <label for="reddit"><a href="http://www.reddit.com" target="_blank">Reddit</a></label><br />
+							<input type="checkbox" name="bit51_scp[pinterest]" id="pinterest" value="1" <?php if ( $scpoptions['pinterest'] == 1 ) echo "checked"; ?> /> <label for="pinterest"><a href="http://pinterest.com" target="_blank">Pinterest</a></label><br />
 							<input type="checkbox" name="bit51_scp[twitter]" id="twitter" value="1" <?php if ( $scpoptions['twitter'] == 1 ) echo "checked"; ?> /> <label for="twitter"><a href="http://www.twitter.com" target="_blank">Twitter</a></label><br />
 						</td>
 						<td width="50%">
@@ -119,7 +119,7 @@ if (!class_exists( 'scp_admin' ) ) {
 			$input['facebook'] = isset( $input['facebook'] ) ? $input['facebook'] : '0';
 			$input['google'] = isset( $input['google'] ) ? $input['google'] : '0';
 			$input['linkedin'] = isset( $input['linkedin'] ) ? $input['linkedin'] : '0';
-			$input['reddit'] = isset( $input['reddit'] ) ? $input['reddit'] : '0';
+			$input['pinterest'] = isset( $input['pinterest'] ) ? $input['pinterest'] : '0';
 			$input['twitter'] = isset( $input['twitter'] ) ? $input['twitter'] : '0';
 			$input['archive'] = isset( $input['archive'] ) ? $input['archive'] : '0';
 			$input['front'] = isset( $input['front'] ) ? $input['front'] : '0';
