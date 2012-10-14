@@ -62,6 +62,17 @@
 
     }
 
+    if ( jQuery( 'div.scpStumbleupon' ).length ) {
+
+        widgetScript = document.createElement( tag ); 
+        widgetScript.id = 'scp-Stumbleupon';
+        widgetScript.async = 'true';
+        widgetScript.type = 'text/javascript';
+        widgetScript.src = '//platform.stumbleupon.com/1/widgets.js';
+        firstjs.parentNode.insertBefore( widgetScript, firstjs );
+
+    }
+
     if ( jQuery( 'div.scpTwitter' ).length ) {
 
         widgetScript = document.createElement( tag ); 

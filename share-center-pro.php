@@ -20,7 +20,7 @@ if ( ! class_exists( 'bit51_scp' )) {
 
 	class bit51_scp extends Bit51 {
 	
-		public $pluginversion 	= '0004'; //current plugin version
+		public $pluginversion 	= '0005'; //current plugin version
 	
 		//important plugin information
 		public $hook 			= 'share-center-pro';
@@ -42,6 +42,7 @@ if ( ! class_exists( 'bit51_scp' )) {
 					'facebook' 				=> '0',
 					'google' 				=> '0',
 					'linkedin' 				=> '0',
+					'stumbleupon'			=> '0',
 					'twitter'				=> '0',
 					'buffer'				=> '0',
 					'archive'				=> '0',
@@ -249,6 +250,7 @@ if ( ! class_exists( 'bit51_scp' )) {
 
 			if ( strlen( $scpoptions['header'] ) > 1 ) {
 				$buttons .= "<div class=\"scpHeading\">" . $scpoptions['header'] . "</div>\n";
+				$buttons .= "<div class=\"scpclear\"></div>\n";
 			}
 
 			if ( $scpoptions['buffer'] == 1 ) {
@@ -269,6 +271,10 @@ if ( ! class_exists( 'bit51_scp' )) {
 
 			if ( $scpoptions['pinterest'] == 1 ) {
 				$buttons .="<div class=\"scpPinterest\"><a href=\"http://pinterest.com/pin/create/button/?url=" . urlencode( $share_url ) . "&media=" . urlencode( wp_get_attachment_url( get_post_thumbnail_id( $post->ID ) ) ) . "\" class=\"pin-it-button\" count-layout=\"vertical\"><img border=\"0\" src=\"//assets.pinterest.com/images/PinExt.png\" title=\"Pin It\" /></a></div>\n";
+			}
+
+			if ( $scpoptions['stumbleupon'] == 1 ) {
+				$buttons .="<div class=\"scpStumbleupon\"><su:badge layout=\"5\" location=\"" . $share_url . "\"></su:badge></div>\n";
 			}
 
 			if ( $scpoptions['twitter'] == 1 ) {

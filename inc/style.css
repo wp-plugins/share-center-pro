@@ -1,16 +1,19 @@
-.scpclear {
-	clear: both;
-}
-
 #share-center-pro {
-	margin: 0 auto 0 auto;
+	margin: 20px auto 0 auto;
+    padding: 15px 0 15px 0;
 	text-align: justify;
     -ms-text-justify: distribute-all-lines;
     text-justify: distribute-all-lines;
     width: 90%;
 }
 
-#share-center-pro div {
+#share-center-pro .scpBuffer,
+#share-center-pro .scpFacebook,
+#share-center-pro .scpGoogle,
+#share-center-pro .scpLinkedin,
+#share-center-pro .scpPinterest,
+#share-center-pro .scpStumbleupon,
+#share-center-pro .scpTwitter {
     height: 90px;
     vertical-align: top;
     display: inline-block;
@@ -41,4 +44,12 @@
 
 .fb_edge_widget_with_comment span.fb_edge_comment_widget {
     left: -290px !important;
+}
+
+div.scpclear {
+    clear: both;
+    height: 1px;
+    margin: 0;
+    padding: 0;
+    width: 100%;
 }

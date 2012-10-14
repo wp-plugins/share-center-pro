@@ -83,6 +83,7 @@ if (!class_exists( 'scp_admin' ) ) {
 							<input type="checkbox" name="bit51_scp[google]" id="google" value="1" <?php if ( $scpoptions['google'] == 1 ) echo "checked"; ?> /> <label for="google"><a href="http://plus.google.com" target="_blank">Google +1</a></label><br />
 							<input type="checkbox" name="bit51_scp[linkedin]" id="linkedin" value="1" <?php if ( $scpoptions['linkedin'] == 1 ) echo "checked"; ?> /> <label for="linkedin"><a href="http://www.linkedin.com" target="_blank">LinkedIn</a></label><br />
 							<input type="checkbox" name="bit51_scp[pinterest]" id="pinterest" value="1" <?php if ( $scpoptions['pinterest'] == 1 ) echo "checked"; ?> /> <label for="pinterest"><a href="http://pinterest.com" target="_blank">Pinterest</a></label><br />
+							<input type="checkbox" name="bit51_scp[stumbleupon]" id="stumbleupon" value="1" <?php if ( $scpoptions['stumbleupon'] == 1 ) echo "checked"; ?> /> <label for="stumbleupon"><a href="http://stumbleupon.com" target="_blank">StumbleUpon</a></label><br />
 							<input type="checkbox" name="bit51_scp[twitter]" id="twitter" value="1" <?php if ( $scpoptions['twitter'] == 1 ) echo "checked"; ?> /> <label for="twitter"><a href="http://www.twitter.com" target="_blank">Twitter</a></label><br />
 						</td>
 						<td width="50%">
@@ -120,6 +121,7 @@ if (!class_exists( 'scp_admin' ) ) {
 			$input['google'] = isset( $input['google'] ) ? $input['google'] : '0';
 			$input['linkedin'] = isset( $input['linkedin'] ) ? $input['linkedin'] : '0';
 			$input['pinterest'] = isset( $input['pinterest'] ) ? $input['pinterest'] : '0';
+			$input['stumbleupon'] = isset( $input['stumbleupon'] ) ? $input['stumbleupon'] : '0';
 			$input['twitter'] = isset( $input['twitter'] ) ? $input['twitter'] : '0';
 			$input['archive'] = isset( $input['archive'] ) ? $input['archive'] : '0';
 			$input['front'] = isset( $input['front'] ) ? $input['front'] : '0';
