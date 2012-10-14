@@ -1,0 +1,44 @@
+.scpclear {
+	clear: both;
+}
+
+#share-center-pro {
+	margin: 0 auto 0 auto;
+	text-align: justify;
+    -ms-text-justify: distribute-all-lines;
+    text-justify: distribute-all-lines;
+    width: 90%;
+}
+
+#share-center-pro div {
+    height: 90px;
+    vertical-align: top;
+    display: inline-block;
+    *display: inline;
+    text-align: center;
+    zoom: 1;
+    overflow: visible;
+}
+
+.scpFacebook iframe {
+    max-width: 450px;
+    max-height: 300px;
+}
+
+.scpHeading {
+	clear: both;
+	float: left;
+	margin-bottom: 5px;
+	width: 90%;
+} 
+
+#share-center-pro span.stretch {
+    width: 100%;
+    display: inline-block;
+    font-size: 0;
+    line-height: 0
+}
+
+.fb_edge_widget_with_comment span.fb_edge_comment_widget {
+    left: -290px !important;
+}
