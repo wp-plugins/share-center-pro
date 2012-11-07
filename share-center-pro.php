@@ -20,7 +20,7 @@ if ( ! class_exists( 'bit51_scp' )) {
 
 	class bit51_scp extends Bit51 {
 	
-		public $pluginversion 	= '0005'; //current plugin version
+		public $pluginversion 	= '0006'; //current plugin version
 	
 		//important plugin information
 		public $hook 			= 'share-center-pro';
@@ -51,7 +51,8 @@ if ( ! class_exists( 'bit51_scp' )) {
 					'home'					=> '0',
 					'search'				=> '0',
 					'single'				=> '0',
-					'twitteruser'			=> ''
+					'twitteruser'			=> '',
+					'usecss'				=> '1'
 				)
 			)
 		);
@@ -100,7 +101,9 @@ if ( ! class_exists( 'bit51_scp' )) {
 			add_filter( 'the_content', array( &$this, 'scp_addtocontent' ), 25 );
 
 			//Enqueue the stylesheet
-			add_action( 'wp_print_styles', array( &$this, 'scp_addstylesheet' ) );
+			if ( $scpoptions['usecss'] == 1 ) {
+				add_action( 'wp_print_styles', array( &$this, 'scp_addstylesheet' ) );
+			}
 
 			//Add facebook thumbnail to header
 			add_action( 'wp_head', array( &$this, 'scp_addfbmeta' ) );
