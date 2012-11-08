@@ -104,6 +104,7 @@ if (!class_exists( 'scp_admin' ) ) {
 							<p><?php _e( 'Note: Turning off this option will remove the CSS stylesheet provided by the plugin allowing you to style it your own way.', $this->hook ); ?></p>
 							<label for"header"><?php _e( 'Enter text to appear before the sharing buttons (if needed)', $this->hook ); ?></label> <input name="bit51_scp[header]" id="header" value="<?php echo $scpoptions['header']; ?>" type="text"><br />
 							<label for"twitteruser"><?php _e( 'Enter your twitter username (for link tracking)', $this->hook ); ?></label> <input name="bit51_scp[twitteruser]" id="twitteruser" value="<?php echo $scpoptions['twitteruser']; ?>" type="text"><br />
+							<label for"fbappid"><?php _e( 'Enter your Facebook App ID (if you have one)', $this->hook ); ?></label> <input name="bit51_scp[fbappid]" id="fbappid" value="<?php echo $scpoptions['fbappid']; ?>" type="text"><br />
 						</td>
 					</tr>
 				</table>
@@ -131,8 +132,10 @@ if (!class_exists( 'scp_admin' ) ) {
 			$input['page'] = isset( $input['page'] ) ? $input['page'] : '0';
 			$input['search'] = isset( $input['search'] ) ? $input['search'] : '0';
 			$input['single'] = isset( $input['single'] ) ? $input['single'] : '0';
+			$input['usecss'] = isset( $input['usecss'] ) ? $input['usecss'] : '0';
 
 			$input['header'] = sanitize_text_field( $input['header'] );
+			$input['fbappid'] = sanitize_text_field( $input['fbappid'] );
 			$input['twitteruser'] = sanitize_text_field( $input['twitteruser'] );
 			if ( strstr( $input['twitteruser'], '@' ) ) {
 				$input['twitteruser'] = substr( $input['twitteruser'], 1 );

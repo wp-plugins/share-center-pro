@@ -20,7 +20,7 @@ if ( ! class_exists( 'bit51_scp' )) {
 
 	class bit51_scp extends Bit51 {
 	
-		public $pluginversion 	= '0006'; //current plugin version
+		public $pluginversion 	= '0007'; //current plugin version
 	
 		//important plugin information
 		public $hook 			= 'share-center-pro';
@@ -52,7 +52,8 @@ if ( ! class_exists( 'bit51_scp' )) {
 					'search'				=> '0',
 					'single'				=> '0',
 					'twitteruser'			=> '',
-					'usecss'				=> '1'
+					'usecss'				=> '1',
+					'fbappid'				=> ''
 				)
 			)
 		);
@@ -150,7 +151,7 @@ if ( ! class_exists( 'bit51_scp' )) {
 					"<meta property=\"og:url\" content=\"" . get_permalink( $post->ID ) . "\"/>\n";
 					
 				if ( strlen( $thumbnail ) > 1 ) { //only display thumbnail if an image is used
-					echo "<meta property=\"og:image\" content=\"http://" . $thumbnail . "\"/>\n";
+					echo "<meta property=\"og:image\" content=\"" . $thumbnail . "\"/>\n";
 				}
 
 				echo "<meta property=\"og:site_name\" content=\"" . get_bloginfo() . "\"/>\n";
@@ -159,8 +160,14 @@ if ( ! class_exists( 'bit51_scp' )) {
 					echo "<meta property=\"og:author\" content=\"" . get_the_author() . "\" />\n";
 				}
 				
-				echo "<meta property=\"og:description\" content=\"" . get_bloginfo( 'description' ) . "\"/>\n" .
-					"<!--## End Share Center Pro Scripts ## -->\n";	
+				echo "<meta property=\"og:description\" content=\"" . get_bloginfo( 'description' ) . "\"/>\n";
+				
+				if ( strlen( $scpoptions['fbappid'] > 1 ) ) {
+					echo "<meta property=\"fb:app_id\" content=\"" . $scpoptions['fbappid'] . "\" />\n";
+				}
+				
+				
+				echo "<!--## End Share Center Pro Scripts ## -->\n";
 
 			}
 
@@ -250,6 +257,10 @@ if ( ! class_exists( 'bit51_scp' )) {
 			$buttons .= "\n<!--## Begin Share Center Pro Scripts ## -->\n";	
 			$buttons .= "<div class=\"scpclear\"></div>\n";
 			$buttons .= "<div id=\"share-center-pro\">\n";
+			
+			if ( $scpoptions['facebook'] == 1 ) {
+				$buttons .= "<div id=\"fb-root\"></div>";
+			}
 
 			if ( strlen( $scpoptions['header'] ) > 1 ) {
 				$buttons .= "<div class=\"scpHeading\">" . $scpoptions['header'] . "</div>\n";
