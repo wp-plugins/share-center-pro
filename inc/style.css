@@ -1,7 +1,7 @@
 #share-center-pro {
-	margin: 20px auto 0 auto;
+    margin: 20px auto 0 auto;
     padding: 15px 0 15px 0;
-	text-align: justify;
+    text-align: justify;
     -ms-text-justify: distribute-all-lines;
     text-justify: distribute-all-lines;
     width: 90%;
@@ -14,7 +14,6 @@
 #share-center-pro .scpPinterest,
 #share-center-pro .scpStumbleupon,
 #share-center-pro .scpTwitter {
-    height: 90px;
     vertical-align: top;
     display: inline-block;
     *display: inline;
@@ -23,16 +22,20 @@
     overflow: visible;
 }
 
+#share-center-pro .scpPinterest a {
+    top: 10px;
+}
+
 .scpFacebook iframe {
     max-width: 450px;
     max-height: 300px;
 }
 
 .scpHeading {
-	clear: both;
-	float: left;
-	margin-bottom: 5px;
-	width: 90%;
+    clear: both;
+    float: left;
+    margin-bottom: 5px;
+    width: 90%;
 } 
 
 #share-center-pro span.stretch {
