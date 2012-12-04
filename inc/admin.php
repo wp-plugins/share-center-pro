@@ -91,7 +91,6 @@ if (!class_exists( 'scp_admin' ) ) {
 							<p><?php __( 'Pick which pages and posts you would like buttons to appear on. If only using the widget leave these all unchecked.', $this->hook ); ?></p>
 							<input type="checkbox" name="bit51_scp[archive]" id="archive" value="1" <?php if ( $scpoptions['archive'] == 1 ) echo "checked"; ?> /> <label for="archive"> <?php _e( 'Show on Archives', $this->hook ); ?></label><br />
 							<input type="checkbox" name="bit51_scp[page]" id="page" value="1" <?php if ( $scpoptions['page'] == 1 ) echo "checked"; ?> /> <label for="page"> <?php _e( 'Show on Pages', $this->hook ); ?></label><br />
-							<input type="checkbox" name="bit51_scp[front]" id="front" value="1" <?php if ( $scpoptions['front'] == 1 ) echo "checked"; ?> /> <label for="front"> <?php _e( 'Show on Frontpage', $this->hook ); ?></label><br />
 							<input type="checkbox" name="bit51_scp[home]" id="home" value="1" <?php if ( $scpoptions['home'] == 1 ) echo "checked"; ?> /> <label for="home"> <?php _e( 'Show on Homepage</strong', $this->hook ); ?>></label><br />
 							<input type="checkbox" name="bit51_scp[search]" id="search" value="1" <?php if ( $scpoptions['search'] == 1 ) echo "checked"; ?> /> <label for="search"> <?php _e( 'Show on Search Results', $this->hook ); ?></label><br />
 							<input type="checkbox" name="bit51_scp[single]" id="single" value="1" <?php if ( $scpoptions['single'] == 1 ) echo "checked"; ?> /> <label for="single"> <?php _e( 'Show on Single Posts', $this->hook ); ?></label><br />
@@ -127,7 +126,6 @@ if (!class_exists( 'scp_admin' ) ) {
 			$input['stumbleupon'] = isset( $input['stumbleupon'] ) ? $input['stumbleupon'] : '0';
 			$input['twitter'] = isset( $input['twitter'] ) ? $input['twitter'] : '0';
 			$input['archive'] = isset( $input['archive'] ) ? $input['archive'] : '0';
-			$input['front'] = isset( $input['front'] ) ? $input['front'] : '0';
 			$input['home'] = isset( $input['home'] ) ? $input['home'] : '0';
 			$input['page'] = isset( $input['page'] ) ? $input['page'] : '0';
 			$input['search'] = isset( $input['search'] ) ? $input['search'] : '0';

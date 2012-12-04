@@ -20,7 +20,7 @@ if ( ! class_exists( 'bit51_scp' )) {
 
 	class bit51_scp extends Bit51 {
 	
-		public $pluginversion 	= '0007'; //current plugin version
+		public $pluginversion 	= '0008'; //current plugin version
 	
 		//important plugin information
 		public $hook 			= 'share-center-pro';
@@ -47,7 +47,6 @@ if ( ! class_exists( 'bit51_scp' )) {
 					'buffer'				=> '0',
 					'archive'				=> '0',
 					'page'					=> '0',
-					'front'					=> '0',
 					'home'					=> '0',
 					'search'				=> '0',
 					'single'				=> '0',
@@ -196,7 +195,7 @@ if ( ! class_exists( 'bit51_scp' )) {
 			global $scpoptions;
 			
 			//if the buttons should be on the current content then add them to the end of it
-			if ( ( is_archive() && $scpoptions['archive'] == 1 ) || ( is_page() && $scpoptions['page'] == 1 ) || ( is_front_page() && $scpoptions['front'] == 1 ) || ( is_home() && $scpoptions['home'] == 1 ) || ( is_search() &&  $scpoptions['search'] == 1 ) || ( is_single() && $scpoptions['single'] == 1 ) ) {
+			if ( ( is_archive() && $scpoptions['archive'] == 1 ) || ( is_page() && ! is_front_page() && ! is_home() && $scpoptions['page'] == 1 ) || ( ( is_front_page() || is_home() ) && $scpoptions['home'] == 1 ) || ( is_search() &&  $scpoptions['search'] == 1 ) || ( is_single() && $scpoptions['single'] == 1 ) ) {
 				return $content . $this->scp_social_buttons();
 			} else {
 				return $content;
