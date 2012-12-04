@@ -20,7 +20,7 @@ if ( ! class_exists( 'bit51_scp' )) {
 
 	class bit51_scp extends Bit51 {
 	
-		public $pluginversion 	= '0008'; //current plugin version
+		public $pluginversion 	= '0010'; //current plugin version
 	
 		//important plugin information
 		public $hook 			= 'share-center-pro';
@@ -52,7 +52,9 @@ if ( ! class_exists( 'bit51_scp' )) {
 					'single'				=> '0',
 					'twitteruser'			=> '',
 					'usecss'				=> '1',
-					'fbappid'				=> ''
+					'fbappid'				=> '',
+					'fpog'					=> '0',
+					'tcmd'					=> '0'
 				)
 			)
 		);
@@ -105,8 +107,23 @@ if ( ! class_exists( 'bit51_scp' )) {
 				add_action( 'wp_print_styles', array( &$this, 'scp_addstylesheet' ) );
 			}
 
-			//Add facebook thumbnail to header
-			add_action( 'wp_head', array( &$this, 'scp_addfbmeta' ) );
+			if ( $scpoptions['fbog'] == 1 || $scpoptions['tcmd'] == 1 ) {
+
+				//Add facebook meta to header
+				add_action( 'wp_head', array( &$this, 'scp_addmeta' ) );
+
+				//remove jetpack OpenGraph (if needed)
+				if ( $scpoptions['fbog'] == 1 ) {
+
+					$active_plugins = get_option( 'active_plugins', array() );
+
+					if ( in_array( 'jetpack/jetpack.php', $active_plugins ) ) {
+						add_filter( 'jetpack_enable_opengraph', '__return_false', 99 );
+					}
+
+				}
+				
+			}
 
 		}
 
@@ -115,7 +132,7 @@ if ( ! class_exists( 'bit51_scp' )) {
 		  *
 		  * @return null
 		  **/
-		function scp_addfbmeta() {
+		function scp_addmeta() {
 			
 			global $scpoptions, $posts, $post;
 			
@@ -139,15 +156,16 @@ if ( ! class_exists( 'bit51_scp' )) {
 				}
 
 			}
-
-			//only add if FB is active and it is a signle or page
-
-			if ( $scpoptions['facebook'] == 1 && ( is_single() || is_page() ) ) {
 				
-				echo "<!--## Begin Share Center Pro Scripts ## -->\n" .
-					"<meta property=\"og:title\" content=\"" . get_the_title( $post->ID ) . "\"/>\n" .
+			echo "<!--## Begin Share Center Pro Scripts ## -->\n";
+
+			//add FaceBook OpenGraph Data
+			if ( $scpoptions['fbog'] == 1 ) {
+					
+				echo "<meta property=\"og:title\" content=\"" . get_the_title( $post->ID ) . "\"/>\n" .
 					"<meta property=\"og:type\" content=\"article\"/>\n" .
-					"<meta property=\"og:url\" content=\"" . get_permalink( $post->ID ) . "\"/>\n";
+					"<meta property=\"og:url\" content=\"" . get_permalink( $post->ID ) . "\"/>\n" . 
+					"<meta property=\"og:locale\" content=\"" . get_bloginfo( 'language' ) . "\"/>\n";
 					
 				if ( strlen( $thumbnail ) > 1 ) { //only display thumbnail if an image is used
 					echo "<meta property=\"og:image\" content=\"" . $thumbnail . "\"/>\n";
@@ -159,16 +177,39 @@ if ( ! class_exists( 'bit51_scp' )) {
 					echo "<meta property=\"og:author\" content=\"" . get_the_author() . "\" />\n";
 				}
 				
-				echo "<meta property=\"og:description\" content=\"" . get_bloginfo( 'description' ) . "\"/>\n";
+				if ( is_home() || is_front_page() ) {
+					echo "<meta property=\"og:description\" content=\"" . get_bloginfo( 'description' ) . "\"/>\n";
+				} else if ( is_singular() ) {
+					echo "<meta property=\"og:description\" content=\"" . strip_tags( get_the_excerpt() ) . "\"/>\n";
+				} 
 				
 				if ( strlen( $scpoptions['fbappid'] > 1 ) ) {
 					echo "<meta property=\"fb:app_id\" content=\"" . $scpoptions['fbappid'] . "\" />\n";
 				}
-				
-				
-				echo "<!--## End Share Center Pro Scripts ## -->\n";
 
 			}
+
+			//add Twitter card  Data
+			if ( $scpoptions['tcmd'] == 1 ) {
+			
+				echo "<meta name=\"twitter:card\" content=\"summary\">\n";
+
+				if ( strlen( $scpoptions['twitteruser'] > 1 ) ) {
+					echo "<meta name=\"twitter:site\" content=\"@" . $scpoptions['twitteruser'] . "\">\n";
+				}
+
+				if ( is_home() || is_front_page() ) {
+					echo "<meta property=\"twitter:description\" content=\"" . get_bloginfo( 'description' ) . "\"/>\n";
+				} else if ( is_singular() ) {
+					echo "<meta property=\"twitter:description\" content=\"" . strip_tags( get_the_excerpt() ) . "\"/>\n";
+				} 
+
+				echo "<meta property=\"twitter:title\" content=\"" . get_the_title( $post->ID ) . "\"/>\n";
+				echo "<meta property=\"twitter:url\" content=\"" . get_permalink( $post->ID ) . "\"/>\n";
+
+			}
+
+			echo "<!--## End Share Center Pro Scripts ## -->\n";
 
 		}
 
