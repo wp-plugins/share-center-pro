@@ -20,7 +20,7 @@ if ( ! class_exists( 'bit51_scp' )) {
 
 	class bit51_scp extends Bit51 {
 	
-		public $pluginversion 	= '0013'; //current plugin version
+		public $pluginversion 	= '0014'; //current plugin version
 	
 		//important plugin information
 		public $hook 			= 'share-center-pro';
@@ -47,7 +47,7 @@ if ( ! class_exists( 'bit51_scp' )) {
 					'linkedin' 				=> '0',
 					'linkedinweight'		=> '40',
 					'stumbleupon'			=> '0',
-					'stumbleuponweight'		=> '6-',
+					'stumbleuponweight'		=> '60',
 					'twitter'				=> '0',
 					'twitterweight'			=> '70',
 					'buffer'				=> '0',
