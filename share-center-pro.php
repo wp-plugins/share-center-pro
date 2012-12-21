@@ -20,7 +20,7 @@ if ( ! class_exists( 'bit51_scp' )) {
 
 	class bit51_scp extends Bit51 {
 	
-		public $pluginversion 	= '0010'; //current plugin version
+		public $pluginversion 	= '0012'; //current plugin version
 	
 		//important plugin information
 		public $hook 			= 'share-center-pro';
@@ -54,7 +54,9 @@ if ( ! class_exists( 'bit51_scp' )) {
 					'usecss'				=> '1',
 					'fbappid'				=> '',
 					'fpog'					=> '0',
-					'tcmd'					=> '0'
+					'tcmd'					=> '0',
+					'locationsingle'		=> '0',
+					'locationlist'			=> '0'
 				)
 			)
 		);
@@ -237,6 +239,30 @@ if ( ! class_exists( 'bit51_scp' )) {
 			
 			//if the buttons should be on the current content then add them to the end of it
 			if ( ( is_archive() && $scpoptions['archive'] == 1 ) || ( is_page() && ! is_front_page() && ! is_home() && $scpoptions['page'] == 1 ) || ( ( is_front_page() || is_home() ) && $scpoptions['home'] == 1 ) || ( is_search() &&  $scpoptions['search'] == 1 ) || ( is_single() && $scpoptions['single'] == 1 ) ) {
+
+				//decide which location we should pick based on page type
+				if ( is_page() || is_single() ) {
+					$location = $scpoptions['locationsingle'];
+				} else {
+					$location = $scpoptions['locationlist'];
+				}
+				
+				//add buttons before/after/both depending on user's choice
+				switch ( $location ) {
+					case '0':
+						return $content . $this->scp_social_buttons();
+						break;
+					case '1':
+						return $this->scp_social_buttons() . $content;
+						break;
+					case '2':
+						return $this->scp_social_buttons() . $content . $this->scp_social_buttons();
+						break;
+					default:
+						return $content;
+						break;
+				}
+
 				return $content . $this->scp_social_buttons();
 			} else {
 				return $content;

@@ -94,6 +94,16 @@ if (!class_exists( 'scp_admin' ) ) {
 							<input type="checkbox" name="bit51_scp[home]" id="home" value="1" <?php if ( $scpoptions['home'] == 1 ) echo "checked"; ?> /> <label for="home"> <?php _e( 'Show on Homepage</strong', $this->hook ); ?>></label><br />
 							<input type="checkbox" name="bit51_scp[search]" id="search" value="1" <?php if ( $scpoptions['search'] == 1 ) echo "checked"; ?> /> <label for="search"> <?php _e( 'Show on Search Results', $this->hook ); ?></label><br />
 							<input type="checkbox" name="bit51_scp[single]" id="single" value="1" <?php if ( $scpoptions['single'] == 1 ) echo "checked"; ?> /> <label for="single"> <?php _e( 'Show on Single Posts', $this->hook ); ?></label><br />
+							<select name="bit51_scp[locationsingle]" id="locationsingle">
+								<option value="0" <?php if ( $scpoptions['locationsingle'] == 0 ) echo "selected"; ?> ><?php _e( 'Bottom', $this->hook ); ?></option>
+								<option value="1" <?php if ( $scpoptions['locationsingle'] == 1 ) echo "selected"; ?> ><?php _e( 'Top', $this->hook ); ?></option>
+								<option value="2" <?php if ( $scpoptions['locationsingle'] == 2 ) echo "selected"; ?> ><?php _e( 'Both', $this->hook ); ?></option>
+							</select><label for="locationsingle"> <?php _e( 'Show above content, below content, or both in single posts and pages', $this->hook ); ?></label><br />
+							<select name="bit51_scp[locationlist]" id="locationlist">
+								<option value="0" <?php if ( $scpoptions['locationlist'] == 0 ) echo "selected"; ?> ><?php _e( 'Bottom', $this->hook ); ?></option>
+								<option value="1" <?php if ( $scpoptions['locationlist'] == 1 ) echo "selected"; ?> ><?php _e( 'Top', $this->hook ); ?></option>
+								<option value="2" <?php if ( $scpoptions['locationlist'] == 2 ) echo "selected"; ?> ><?php _e( 'Both', $this->hook ); ?></option>
+							</select><label for="locationlist"> <?php _e( 'Show above content, below content, or both on blog, category, search, or other pages where content is listed', $this->hook ); ?></label><br />
 							<em><?php _e( 'Note: The widget will only show on single posts and pages regardless of what you choose above.', $this->hook ); ?></em>
 						</td>
 					</tr>
@@ -138,6 +148,8 @@ if (!class_exists( 'scp_admin' ) ) {
 			$input['usecss'] = isset( $input['usecss'] ) ? $input['usecss'] : '0';
 			$input['fbog'] = isset( $input['fbog'] ) ? $input['fbog'] : '0';
 			$input['tcmd'] = isset( $input['tcmd'] ) ? $input['tcmd'] : '0';
+			$input['locationsingle'] = isset( $input['locationsingle'] ) ? $input['locationsingle'] : '0';
+			$input['locationlist'] = isset( $input['locationlist'] ) ? $input['locationlist'] : '0';
 
 			$input['header'] = sanitize_text_field( $input['header'] );
 			$input['fbappid'] = sanitize_text_field( $input['fbappid'] );
