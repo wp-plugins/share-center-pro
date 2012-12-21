@@ -4,8 +4,8 @@ Contributors: Bit51
 Donate link: http://bit51.com/software/share-center-pro/
 Tags: Google+, Google plus, Twitter, Facebook, linkedIn, StumbleUpon, Pinterest, Buffer, asynchronous, performance, bit.ly, shortlink, share, widget, social
 Requires at least: 3.0
-Tested up to: 3.4.2
-Stable tag: 2.3
+Tested up to: 3.5
+Stable tag: 2.4
 
 Adds asynchronous (won't slow your site down) sharing buttons for Google plus, Facebook, Twitter, LinkedIn, Buffer, and Reddit.
 
@@ -54,6 +54,14 @@ Add sharing buttons for Buffer, Facebook, Google +1, LinkedIn, Pinterest, and Tw
 3. Display buttons anywhere you want with a widget.
 
 == Changelog ==
+
+= 2.4 =
+* Added ability to manually sort buttons
+* Added ability to display buttons above content, below content, or both
+* Added .pot file to encourage translations
+* Added Twittercard support
+* Improved opengraph will override jetpack
+* Improved logic for page display
 
 = 2.3 =
 * Added option to turn of plugin CSS
