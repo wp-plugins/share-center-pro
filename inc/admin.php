@@ -78,13 +78,104 @@ if (!class_exists( 'scp_admin' ) ) {
 						<td width="50%">
 							<h4><?php _e( 'Buttons to show', $this->hook ); ?></h4>
 							<p><?php __( 'Pick which buttons you would like to have appear on your site', $this->hook ); ?></p>
-							<input type="checkbox" name="bit51_scp[buffer]" id="buffer" value="1" <?php if ( $scpoptions['buffer'] == 1 ) echo "checked"; ?> /> <label for="buffer"><a href="http://www.bufferapp.com" target="_blank">Buffer</a></label><br />
-							<input type="checkbox" name="bit51_scp[facebook]" id="facebook" value="1" <?php if ( $scpoptions['facebook'] == 1 ) echo "checked"; ?> /> <label for="facebook"><a href="http://www.facebook.com" target="_blank">Facebook</a></label><br />
-							<input type="checkbox" name="bit51_scp[google]" id="google" value="1" <?php if ( $scpoptions['google'] == 1 ) echo "checked"; ?> /> <label for="google"><a href="http://plus.google.com" target="_blank">Google +1</a></label><br />
-							<input type="checkbox" name="bit51_scp[linkedin]" id="linkedin" value="1" <?php if ( $scpoptions['linkedin'] == 1 ) echo "checked"; ?> /> <label for="linkedin"><a href="http://www.linkedin.com" target="_blank">LinkedIn</a></label><br />
-							<input type="checkbox" name="bit51_scp[pinterest]" id="pinterest" value="1" <?php if ( $scpoptions['pinterest'] == 1 ) echo "checked"; ?> /> <label for="pinterest"><a href="http://pinterest.com" target="_blank">Pinterest</a></label><br />
-							<input type="checkbox" name="bit51_scp[stumbleupon]" id="stumbleupon" value="1" <?php if ( $scpoptions['stumbleupon'] == 1 ) echo "checked"; ?> /> <label for="stumbleupon"><a href="http://stumbleupon.com" target="_blank">StumbleUpon</a></label><br />
-							<input type="checkbox" name="bit51_scp[twitter]" id="twitter" value="1" <?php if ( $scpoptions['twitter'] == 1 ) echo "checked"; ?> /> <label for="twitter"><a href="http://www.twitter.com" target="_blank">Twitter</a></label><br />
+							<table class="bit51sorttable" width="90%" style="margin: 0 auto 0 auto">
+								<tbody>
+								<tr class="thead">
+									<td width="50%"><strong><?php _e( 'Service', $this->hook ); ?></strong></td>
+									<td width="20%"><strong><?php _e( 'Enable', $this->hook ); ?></strong></td>
+									<td width="30%"><strong><?php _e( 'Weight', $this->hook ); ?></strong></td>
+								</tr>
+								<?php
+									//lets sort the buttons by weight
+									$buttons = array( 
+										$scpoptions['bufferweight'] => 'Buffer',
+										$scpoptions['facebookweight'] => 'Facebook',
+										$scpoptions['googleweight'] => 'Google',
+										$scpoptions['linkedinweight'] => 'LinkedIn',
+										$scpoptions['pinterestweight'] => 'Pinterest',
+										$scpoptions['stumbleuponweight'] => 'StumbleUpon',
+										$scpoptions['twitterweight'] => 'Twitter'
+									);
+
+									ksort ( $buttons );
+
+									$row = 1;
+
+									foreach ( $buttons as $weight => $button ) {
+										
+										$rowclass = ( $row == 1 ? 'odd' : 'even' );
+										$row = ( $row == 1 ? 2 : 1 );
+
+										switch ( $button ) {
+											case 'Buffer':
+												?>
+													<tr class="<?php echo $rowclass; ?>">
+														<td width="50%"><label for="buffer"><a href="http://www.bufferapp.com" target="_blank">Buffer</a></label></td>
+														<td width="20%"><input type="checkbox" name="bit51_scp[buffer]" id="buffer" value="1" <?php if ( $scpoptions['buffer'] == 1 ) echo "checked"; ?> /></td>
+														<td width="30%"><input type="text" name="bit51_scp[bufferweight]" id="bufferweight" value="<?php echo $scpoptions['bufferweight']; ?>" style="width: 25px;" maxlength="3" /></td>
+													</tr>
+												<?php
+												break;
+											case 'Facebook':
+												?>
+													<tr class="<?php echo $rowclass; ?>">
+														<td width="50%"><label for="facebook"><a href="http://www.facebook.com" target="_blank">Facebook</a></label></td>
+														<td width="20%"><input type="checkbox" name="bit51_scp[facebook]" id="facebook" value="1" <?php if ( $scpoptions['facebook'] == 1 ) echo "checked"; ?> /></td>
+														<td width="30%"><input type="text" name="bit51_scp[facebookweight]" id="facebookweight" value="<?php echo $scpoptions['facebookweight']; ?>" style="width: 25px;" maxlength="3" /></td>
+													</tr>
+												<?php
+												break;
+											case 'Google':
+												?>
+													<tr class="<?php echo $rowclass; ?>">
+														<td width="50%"><label for="google"><label for="google"><a href="http://plus.google.com" target="_blank">Google +1</a></label></td>
+														<td width="20%"><input type="checkbox" name="bit51_scp[google]" id="google" value="1" <?php if ( $scpoptions['google'] == 1 ) echo "checked"; ?> /></td>
+														<td width="30%"><input type="text" name="bit51_scp[googleweight]" id="googleweight" value="<?php echo $scpoptions['googleweight']; ?>" style="width: 25px;" maxlength="3" /></td>
+													</tr>
+												<?php
+												break;
+											case 'LinkedIn':
+												?>
+													<tr class="<?php echo $rowclass; ?>">
+														<td width="50%"><label for="linkedin"><a href="http://www.linkedin.com" target="_blank">LinkedIn</a></label></td>
+														<td width="20%"><input type="checkbox" name="bit51_scp[linkedin]" id="linkedin" value="1" <?php if ( $scpoptions['linkedin'] == 1 ) echo "checked"; ?> /></td>
+														<td width="30%"><input type="text" name="bit51_scp[linkedinweight]" id="linkedinweight" value="<?php echo $scpoptions['linkedinweight']; ?>" style="width: 25px;" maxlength="3" /></td>
+													</tr>
+												<?php
+												break;
+											case 'Pinterest':
+												?>
+													<tr class="<?php echo $rowclass; ?>">
+														<td width="50%"><label for="pinterest"><a href="http://pinterest.com" target="_blank">Pinterest</a></label></td>
+														<td width="20%"><input type="checkbox" name="bit51_scp[pinterest]" id="pinterest" value="1" <?php if ( $scpoptions['pinterest'] == 1 ) echo "checked"; ?> /></td>
+														<td width="30%"><input type="text" name="bit51_scp[pinterestweight]" id="pinterestweight" value="<?php echo $scpoptions['pinterestweight']; ?>" style="width: 25px;" maxlength="3" /></td>
+													</tr>
+												<?php
+												break;
+											case 'StumbleUpon':
+												?>
+													<tr class="<?php echo $rowclass; ?>">
+														<td width="50%"><label for="stumbleupon"><a href="http://stumbleupon.com" target="_blank">StumbleUpon</a></label></label></td>
+														<td width="20%"><input type="checkbox" name="bit51_scp[stumbleupon]" id="stumbleupon" value="1" <?php if ( $scpoptions['stumbleupon'] == 1 ) echo "checked"; ?> /></td>
+														<td width="30%"><input type="text" name="bit51_scp[stumbleuponweight]" id="stumbleuponweight" value="<?php echo $scpoptions['stumbleuponweight']; ?>" style="width: 25px;" maxlength="3" /></td>
+													</tr>
+												<?php
+												break;
+											case 'Twitter':
+												?>
+													<tr class="<?php echo $rowclass; ?>">
+														<td width="50%"><label for="twitter"><a href="http://www.twitter.com" target="_blank">Twitter</a></label></td>
+														<td width="20%"><input type="checkbox" name="bit51_scp[twitter]" id="twitter" value="1" <?php if ( $scpoptions['twitter'] == 1 ) echo "checked"; ?> /></td>
+														<td width="30%"><input type="text" name="bit51_scp[twitterweight]" id="twitterweight" value="<?php echo $scpoptions['twitterweight']; ?>" style="width: 25px;" maxlength="3" /></td>
+													</tr>
+												<?php
+												break;
+										}
+
+									}
+								?>
+								<tbody>
+							</table>
 						</td>
 						<td width="50%">
 							<h4><?php _e( 'Where to show buttons (if not using widget)', $this->hook ); ?></h4>
@@ -154,6 +245,13 @@ if (!class_exists( 'scp_admin' ) ) {
 			$input['header'] = sanitize_text_field( $input['header'] );
 			$input['fbappid'] = sanitize_text_field( $input['fbappid'] );
 			$input['twitteruser'] = sanitize_text_field( $input['twitteruser'] );
+			$input['bufferweight'] = sanitize_text_field( $input['bufferweight'] );
+			$input['faceebookweight'] = sanitize_text_field( $input['faceebookweight'] );
+			$input['googleweight'] = sanitize_text_field( $input['googleweight'] );
+			$input['linkedinweight'] = sanitize_text_field( $input['linkedinweight'] );
+			$input['pinterestweight'] = sanitize_text_field( $input['pinterestweight'] );
+			$input['stumbleuponweight'] = sanitize_text_field( $input['stumbleuponweight'] );
+			$input['twitterweight'] = sanitize_text_field( $input['twitterweight'] );
 			if ( strstr( $input['twitteruser'], '@' ) ) {
 				$input['twitteruser'] = substr( $input['twitteruser'], 1 );
 			}

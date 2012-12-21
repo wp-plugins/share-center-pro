@@ -20,7 +20,7 @@ if ( ! class_exists( 'bit51_scp' )) {
 
 	class bit51_scp extends Bit51 {
 	
-		public $pluginversion 	= '0012'; //current plugin version
+		public $pluginversion 	= '0013'; //current plugin version
 	
 		//important plugin information
 		public $hook 			= 'share-center-pro';
@@ -39,12 +39,19 @@ if ( ! class_exists( 'bit51_scp' )) {
 					'callback' 				=> 'scp_val_options',
 					'header' 				=> '',
 					'pinterest' 			=> '0',
+					'pinterestweight'		=> '50',
 					'facebook' 				=> '0',
+					'facebookweight'		=> '20',
 					'google' 				=> '0',
+					'googleweight'			=> '30',
 					'linkedin' 				=> '0',
+					'linkedinweight'		=> '40',
 					'stumbleupon'			=> '0',
+					'stumbleuponweight'		=> '6-',
 					'twitter'				=> '0',
+					'twitterweight'			=> '70',
 					'buffer'				=> '0',
+					'bufferweight'			=> '10',
 					'archive'				=> '0',
 					'page'					=> '0',
 					'home'					=> '0',
@@ -319,11 +326,24 @@ if ( ! class_exists( 'bit51_scp' )) {
 
 			//initialize the buttons
 			$buttons = '';
+
+			//lets sort the buttons by weight
+			$buttonarray = array( 
+				$scpoptions['bufferweight'] => 'Buffer',
+				$scpoptions['facebookweight'] => 'Facebook',
+				$scpoptions['googleweight'] => 'Google',
+				$scpoptions['linkedinweight'] => 'LinkedIn',
+				$scpoptions['pinterestweight'] => 'Pinterest',
+				$scpoptions['stumbleuponweight'] => 'StumbleUpon',
+				$scpoptions['twitterweight'] => 'Twitter'
+			);
+
+			ksort ( $buttonarray );
 			
 			$buttons .= "\n<!--## Begin Share Center Pro Scripts ## -->\n";	
 			$buttons .= "<div class=\"scpclear\"></div>\n";
 			$buttons .= "<div id=\"share-center-pro\">\n";
-			
+
 			if ( $scpoptions['facebook'] == 1 ) {
 				$buttons .= "<div id=\"fb-root\"></div>";
 			}
@@ -333,32 +353,48 @@ if ( ! class_exists( 'bit51_scp' )) {
 				$buttons .= "<div class=\"scpclear\"></div>\n";
 			}
 
-			if ( $scpoptions['buffer'] == 1 ) {
-				$buttons .= "<div class=\"scpBuffer\"><a href=\"http://bufferapp.com/add\" class=\"buffer-add-button\" data-url=\"" . $share_url . "\"data-count=\"vertical\" data-via=\"" . $twitteruser . "\"></a></div>\n";
-			}
+			foreach ( $buttonarray as $weight => $button ) {
+										
+				switch ( $button ) {
 
-			if ( $scpoptions['facebook'] == 1 ) {
-				$buttons .= "<div class=\"scpFacebook\"><fb:like href=\"" . urlencode( $share_url ) . "\" send=\"false\" layout=\"box_count\" width=\"450\" show_faces=\"false\" font=\"arial\"></fb:like></div>\n";
-			}
+					case 'Buffer':
+						if ( $scpoptions['buffer'] == 1 ) {
+							$buttons .= "<div class=\"scpBuffer\"><a href=\"http://bufferapp.com/add\" class=\"buffer-add-button\" data-url=\"" . $share_url . "\"data-count=\"vertical\" data-via=\"" . $twitteruser . "\"></a></div>\n";
+						}
+						break;
+					case 'Facebook':
+						if ( $scpoptions['facebook'] == 1 ) {
+							$buttons .= "<div class=\"scpFacebook\"><fb:like href=\"" . urlencode( $share_url ) . "\" send=\"false\" layout=\"box_count\" width=\"450\" show_faces=\"false\" font=\"arial\"></fb:like></div>\n";
+						}
+						break;
+					case 'Google':
+						if ( $scpoptions['google'] == 1 ) {
+							$buttons .= "<div class=\"scpGoogle\"><g:plusone size=\"tall\" href=\"" . $share_url . "\"></g:plusone></div>\n";
+						}	
+						break;
+					case 'LinkedIn':
+						if ( $scpoptions['linkedin'] == 1 ) {
+							$buttons .= "<div class=\"scpLinkedin\"><script type=\"in/share\" data-counter=\"top\" url=\"" . $share_url . "\"></script></div>\n";
+						}	
+						break;
+					case 'Pinterest':
+						if ( $scpoptions['pinterest'] == 1 ) {
+							$buttons .="<div class=\"scpPinterest\"><a href=\"http://pinterest.com/pin/create/button/?url=" . urlencode( $share_url ) . "&media=" . urlencode( wp_get_attachment_url( get_post_thumbnail_id( $post->ID ) ) ) . "\" class=\"pin-it-button\" count-layout=\"vertical\"><img border=\"0\" src=\"//assets.pinterest.com/images/PinExt.png\" title=\"Pin It\" /></a></div>\n";
+						}
+						break;
+					case 'StumbleUpon':
+						if ( $scpoptions['stumbleupon'] == 1 ) {
+							$buttons .="<div class=\"scpStumbleupon\"><su:badge layout=\"5\" location=\"" . $share_url . "\"></su:badge></div>\n";
+						}
+						break;
+					case 'Twitter':
+						if ( $scpoptions['twitter'] == 1 ) {
+							$buttons .= "<div class=\"scpTwitter\"><a href=\"http://twitter.com/share\" class=\"twitter-share-button\"  data-url=\"" . $share_url . "\" data-counturl=\"" . $full_url . "\" data-text=\"" . get_the_title() . "\" data-count=\"vertical\" data-via=\"" . $twitteruser . "\"></a></div>\n";
+						}
+						break;
 
-			if ( $scpoptions['google'] == 1 ) {
-				$buttons .= "<div class=\"scpGoogle\"><g:plusone size=\"tall\" href=\"" . $share_url . "\"></g:plusone></div>\n";
-			}	
+				}
 
-			if ( $scpoptions['linkedin'] == 1 ) {
-				$buttons .= "<div class=\"scpLinkedin\"><script type=\"in/share\" data-counter=\"top\" url=\"" . $share_url . "\"></script></div>\n";
-			}	
-
-			if ( $scpoptions['pinterest'] == 1 ) {
-				$buttons .="<div class=\"scpPinterest\"><a href=\"http://pinterest.com/pin/create/button/?url=" . urlencode( $share_url ) . "&media=" . urlencode( wp_get_attachment_url( get_post_thumbnail_id( $post->ID ) ) ) . "\" class=\"pin-it-button\" count-layout=\"vertical\"><img border=\"0\" src=\"//assets.pinterest.com/images/PinExt.png\" title=\"Pin It\" /></a></div>\n";
-			}
-
-			if ( $scpoptions['stumbleupon'] == 1 ) {
-				$buttons .="<div class=\"scpStumbleupon\"><su:badge layout=\"5\" location=\"" . $share_url . "\"></su:badge></div>\n";
-			}
-
-			if ( $scpoptions['twitter'] == 1 ) {
-				$buttons .= "<div class=\"scpTwitter\"><a href=\"http://twitter.com/share\" class=\"twitter-share-button\"  data-url=\"" . $share_url . "\" data-counturl=\"" . $full_url . "\" data-text=\"" . get_the_title() . "\" data-count=\"vertical\" data-via=\"" . $twitteruser . "\"></a></div>\n";
 			}
 
 			$buttons .= "<span class=\"stretch\"></span>\n";
