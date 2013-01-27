@@ -4,8 +4,8 @@ Contributors: Bit51
 Donate link: http://bit51.com/software/share-center-pro/
 Tags: Google+, Google plus, Twitter, Facebook, linkedIn, StumbleUpon, Pinterest, Buffer, asynchronous, performance, bit.ly, shortlink, share, widget, social
 Requires at least: 3.0
-Tested up to: 3.5
-Stable tag: 2.4.1
+Tested up to: 3.5.1
+Stable tag: 2.4.2
 
 Adds asynchronous (won't slow your site down) sharing buttons for Google plus, Facebook, Twitter, LinkedIn, Buffer, and Reddit.
 
@@ -31,6 +31,9 @@ Add sharing buttons for Buffer, Facebook, Google +1, LinkedIn, Pinterest, and Tw
 * Works with the <a href="">Bit.ly Shortlinks</a> plugin to provide <a href="">Bit.ly</a> shortlinks including custom domains
 * Can be appended to content or used as a widget
 
+= Translations =
+* Slovak by Branco of <a href="http://webhostinggeeks.com/blog/">WebHostingGeeks.com</a>
+
 == Installation ==
 
 1. Upload the zip file to the `/wp-content/plugins/` directory
@@ -54,6 +57,9 @@ Add sharing buttons for Buffer, Facebook, Google +1, LinkedIn, Pinterest, and Tw
 3. Display buttons anywhere you want with a widget.
 
 == Changelog ==
+
+= 2.4.2 =
+* Added Slovak translation by Branco at <a href="http://webhostinggeeks.com/blog/">WebHostingGeeks.com</a>
 
 = 2.4.1 =
 * Fixed the default weight of the StumbleUpon Button
