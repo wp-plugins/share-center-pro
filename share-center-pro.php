@@ -3,10 +3,10 @@
 	Plugin Name: Share Center Pro
 	Plugin URI: http://bit51.com/software/share-center-pro/
 	Description: Add common social sharing services in a widget to be used anywhere on your page or at the bottom of your posts or other content.
-	Version: 2.4.2
+	Version: 2.4.3
 	Text Domain: share-center-pro
 	Domain Path: /languages
-	Author: Bit51.com
+	Author: Bit51
 	Author URI: http://bit51.com
 	License: GPLv2
 	Copyright 2012  Bit51.com  (email : info@bit51.com)
@@ -20,7 +20,7 @@ if ( ! class_exists( 'bit51_scp' )) {
 
 	class bit51_scp extends Bit51 {
 	
-		public $pluginversion 	= '0014'; //current plugin version
+		public $pluginversion 	= '0015'; //current plugin version
 	
 		//important plugin information
 		public $hook 			= 'share-center-pro';
@@ -145,97 +145,80 @@ if ( ! class_exists( 'bit51_scp' )) {
 			
 			global $scpoptions, $posts, $post;
 			
-			if ( is_singular() || is_front_page() || is_home() ) {
 
+			$thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'single-post-thumbnail' );
 
-				$thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'single-post-thumbnail' );
+			if ( is_array( $thumbnail ) && strlen( $thumbnail[0] ) > 1 ) {
 
-				if ( is_array( $thumbnail ) && strlen( $thumbnail[0] ) > 1 ) {
+				$thumbnail = $thumbnail[0];
 
-					$thumbnail = $thumbnail[0];
+			} else { //get a thumbnail from an image in the post
 
-				} else { //get a thumbnail from an image in the post
-
-					$content = $posts[0]->post_content; 
-					
-					$output = preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $content, $matches );
-
-					if ( $output > 0 ) {
-						$thumbnail = $matches[1][0];
-					} else {
-						$thumbnail = '';
-					}
-
-				}
-
-				echo '<!--## Begin Share Center Pro Scripts ## -->' . PHP_EOL;
-
-				//add FaceBook OpenGraph Data
-				if ( $scpoptions['fbog'] == 1 ) {
-						
-					if( is_singular() ) {
-
-						echo '<meta property="og:title" content="' . get_the_title( $post->ID ) . '" />' . PHP_EOL;
-						echo '<meta property="og:url" content="' . get_permalink( $post->ID ) . '" />' . PHP_EOL;
-						echo '<meta property="og:type" content="article"/>' . PHP_EOL;
-						echo '<meta property="og:description" content="' . strip_tags( the_description() ) . '" />' . PHP_EOL;
-
-					} else {
-						
-						echo '<meta property="og:url" content="' . get_site_url() . '" />' . PHP_EOL;
-						echo '<meta property="og:title" content="' . get_bloginfo() . '" />' . PHP_EOL;
-						echo '<meta property="og:type" content="website"/>' . PHP_EOL;
-						echo '<meta property="og:description" content="' . get_bloginfo( 'description' ) . '" />' . PHP_EOL;
-
-					}
-
-					echo '<meta property="og:locale" content="' . get_bloginfo( 'language' ) . '" />' . PHP_EOL;
-						
-					if ( strlen( $thumbnail ) > 1 ) { //only display thumbnail if an image is used
-						echo '<meta property="og:image" content="' . $thumbnail . '" />' . PHP_EOL;
-					}
-
-					echo '<meta property="og:site_name" content="' . get_bloginfo() . '" />' . PHP_EOL;
-					
-					if ( strlen( get_the_author() > 1 ) ) { //only display author if needed
-						echo '<meta property="og:author" content="' . get_the_author() . '" />' . PHP_EOL;
-					}
-					
-					if ( strlen( $scpoptions['fbappid'] > 1 ) ) {
-						echo '<meta property="fb:app_id" content="' . $scpoptions['fbappid'] . '" />' . PHP_EOL;
-					}
-
-				}
-
-				//add Twitter card  Data
-				if ( $scpoptions['tcmd'] == 1 )  {
+				$content = $posts[0]->post_content; 
 				
-					echo '<meta name="twitter:card" content="summary" />' . PHP_EOL;
+				$output = preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $content, $matches );
 
-					if ( strlen( $scpoptions['twitteruser'] > 1 ) ) {
-						echo '<meta name="twitter:site" content="@' . $scpoptions['twitteruser'] . '" />' . PHP_EOL;
-
-						if( is_singular() ) {
-
-							echo '<meta property="twitter:title" content="' . get_the_title( $post->ID ) . '" />' . PHP_EOL;
-							echo '<meta property="twitter:url" content="' . get_permalink( $post->ID ) . '" />' . PHP_EOL;
-							echo '<meta property="twitter:description" content="' . strip_tags( the_description() ) . '" />' . PHP_EOL;
-
-						} else {
-							
-							echo '<meta property="twitter:url" content="' . get_site_url() . '" />' . PHP_EOL;
-							echo '<meta property="twitter:title" content="' . get_bloginfo() . '" />' . PHP_EOL;
-							echo '<meta property="twitter:description" content="' . get_bloginfo( 'description' ) . '" />' . PHP_EOL;
-
-						}
-
-					}
-
+				if ( $output > 0 ) {
+					$thumbnail = $matches[1][0];
+				} else {
+					$thumbnail = '';
 				}
-
-				echo '<!--## End Share Center Pro Scripts ## -->' . PHP_EOL;
 
 			}
+				
+			echo "<!--## Begin Share Center Pro Scripts ## -->\n";
+
+			//add FaceBook OpenGraph Data
+			if ( $scpoptions['fbog'] == 1 ) {
+					
+				echo "<meta property=\"og:title\" content=\"" . get_the_title( $post->ID ) . "\"/>\n" .
+					"<meta property=\"og:type\" content=\"article\"/>\n" .
+					"<meta property=\"og:url\" content=\"" . get_permalink( $post->ID ) . "\"/>\n" . 
+					"<meta property=\"og:locale\" content=\"" . get_bloginfo( 'language' ) . "\"/>\n";
+					
+				if ( strlen( $thumbnail ) > 1 ) { //only display thumbnail if an image is used
+					echo "<meta property=\"og:image\" content=\"" . $thumbnail . "\"/>\n";
+				}
+
+				echo "<meta property=\"og:site_name\" content=\"" . get_bloginfo() . "\"/>\n";
+				
+				if ( strlen( get_the_author() > 1 ) ) { //only display author if needed
+					echo "<meta property=\"og:author\" content=\"" . get_the_author() . "\" />\n";
+				}
+				
+				if ( is_home() || is_front_page() ) {
+					echo "<meta property=\"og:description\" content=\"" . get_bloginfo( 'description' ) . "\"/>\n";
+				} else if ( is_singular() ) {
+					echo "<meta property=\"og:description\" content=\"" . strip_tags( get_the_excerpt() ) . "\"/>\n";
+				} 
+				
+				if ( strlen( $scpoptions['fbappid'] > 1 ) ) {
+					echo "<meta property=\"fb:app_id\" content=\"" . $scpoptions['fbappid'] . "\" />\n";
+				}
+
+			}
+
+			//add Twitter card  Data
+			if ( $scpoptions['tcmd'] == 1 ) {
+			
+				echo "<meta name=\"twitter:card\" content=\"summary\">\n";
+
+				if ( strlen( $scpoptions['twitteruser'] > 1 ) ) {
+					echo "<meta name=\"twitter:site\" content=\"@" . $scpoptions['twitteruser'] . "\">\n";
+				}
+
+				if ( is_home() || is_front_page() ) {
+					echo "<meta property=\"twitter:description\" content=\"" . get_bloginfo( 'description' ) . "\"/>\n";
+				} else if ( is_singular() ) {
+					echo "<meta property=\"twitter:description\" content=\"" . strip_tags( get_the_excerpt() ) . "\"/>\n";
+				} 
+
+				echo "<meta property=\"twitter:title\" content=\"" . get_the_title( $post->ID ) . "\"/>\n";
+				echo "<meta property=\"twitter:url\" content=\"" . get_permalink( $post->ID ) . "\"/>\n";
+
+			}
+
+			echo "<!--## End Share Center Pro Scripts ## -->\n";
 
 		}
 
