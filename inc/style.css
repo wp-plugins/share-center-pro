@@ -1,10 +1,8 @@
 #share-center-pro {
     margin: 20px auto 0 auto;
-    padding: 15px 0 15px 0;
-    text-align: justify;
-    -ms-text-justify: distribute-all-lines;
-    text-justify: distribute-all-lines;
-    width: 90%;
+    padding: 15px 0 0 0;
+    text-align: center;
+    width: 100%;
 }
 
 #share-center-pro .scpBuffer,
@@ -17,6 +15,7 @@
     vertical-align: top;
     display: inline-block;
     *display: inline;
+    margin: 0 16px 16px 16px;
     text-align: center;
     zoom: 1;
     overflow: visible;
