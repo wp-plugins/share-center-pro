@@ -3,7 +3,7 @@
 	Plugin Name: Share Center Pro
 	Plugin URI: http://bit51.com/software/share-center-pro/
 	Description: Add common social sharing services in a widget to be used anywhere on your page or at the bottom of your posts or other content.
-	Version: 2.4.4
+	Version: 2.4.5
 	Text Domain: share-center-pro
 	Domain Path: /languages
 	Author: Bit51
