@@ -201,14 +201,14 @@ if (!class_exists( 'scp_admin' ) ) {
 					<tr valign="top">
 						<td colspan="2">
 							<h4><?php _e( 'Other Options', $this->hook ); ?></h4>
-							<p><input type="checkbox" name="bit51_scp[usecss]" id="usecss" value="1" <?php if ( $scpoptions['usecss'] == 1 ) echo "checked"; ?> /> <label for="single"> <?php _e( 'Use provided CSS', $this->hook ); ?></label><br />
+							<p><input type="checkbox" name="bit51_scp[usecss]" id="usecss" value="1" <?php if ( isset( $scpoptions['usecss'] ) && $scpoptions['usecss'] == 1 ) echo "checked"; ?> /> <label for="single"> <?php _e( 'Use provided CSS', $this->hook ); ?></label><br />
 							<em><?php _e( 'Note: Turning off this option will remove the CSS stylesheet provided by the plugin allowing you to style it your own way.', $this->hook ); ?></em></p>
 							<p><label for"header"><?php _e( 'Enter text to appear before the sharing buttons (if needed)', $this->hook ); ?></label> <input name="bit51_scp[header]" id="header" value="<?php echo $scpoptions['header']; ?>" type="text"><br />
 							<label for"fbappid"><?php _e( 'Enter your Facebook App ID (if you have one)', $this->hook ); ?></label> <input name="bit51_scp[fbappid]" id="fbappid" value="<?php echo $scpoptions['fbappid']; ?>" type="text"><br /></p>
-							<p><input type="checkbox" name="bit51_scp[fbog]" id="fbog" value="1" <?php if ( $scpoptions['fbog'] == 1 ) echo "checked"; ?> /> <label for="single"> <?php _e( 'Use Facebook OpenGraph meta data', $this->hook ); ?></label><br />
+							<p><input type="checkbox" name="bit51_scp[fbog]" id="fbog" value="1" <?php if ( isset( $scpoptions['fbog'] ) && $scpoptions['fbog'] == 1 ) echo "checked"; ?> /> <label for="single"> <?php _e( 'Use Facebook OpenGraph meta data', $this->hook ); ?></label><br />
 							<em><?php _e( 'Note that using Facebook OpenGraph here will override Jetpack\'s OpenGraph if you have installed it. If you are using WordPress SEO by Yoast you probably don\'t need this option.', $this->hook ); ?></em></p>
 							<p><label for"twitteruser"><?php _e( 'Enter your twitter username (for link tracking and twitter card meta data)', $this->hook ); ?></label> <input name="bit51_scp[twitteruser]" id="twitteruser" value="<?php echo $scpoptions['twitteruser']; ?>" type="text"></p>
-							<p><input type="checkbox" name="bit51_scp[tcmd]" id="fbog" value="1" <?php if ( $scpoptions['tcmd'] == 1 ) echo "checked"; ?> /> <label for="single"> <?php _e( 'Use Twitter card meta data', $this->hook ); ?></label><br />
+							<p><input type="checkbox" name="bit51_scp[tcmd]" id="fbog" value="1" <?php if ( isset( $scpoptions['tcmd'] ) && $scpoptions['tcmd'] == 1 ) echo "checked"; ?> /> <label for="single"> <?php _e( 'Use Twitter card meta data', $this->hook ); ?></label><br />
 							<em><?php _e( 'If you are using WordPress SEO by Yoast you probably don\'t need this option.', $this->hook ); ?></em></p>
 						</td>
 					</tr>

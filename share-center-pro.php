@@ -3,13 +3,13 @@
 	Plugin Name: Share Center Pro
 	Plugin URI: http://bit51.com/software/share-center-pro/
 	Description: Add common social sharing services in a widget to be used anywhere on your page or at the bottom of your posts or other content.
-	Version: 2.4.5
+	Version: 2.4.6
 	Text Domain: share-center-pro
 	Domain Path: /languages
 	Author: Bit51
 	Author URI: http://bit51.com
 	License: GPLv2
-	Copyright 2012  Bit51.com  (email : info@bit51.com)
+	Copyright 2013  Bit51  (email : info@bit51.com)
 */
 
 
@@ -112,17 +112,17 @@ if ( ! class_exists( 'bit51_scp' )) {
 			add_filter( 'the_content', array( &$this, 'scp_addtocontent' ), 25 );
 
 			//Enqueue the stylesheet
-			if ( $scpoptions['usecss'] == 1 ) {
+			if ( isset( $scpoptions['usecss'] ) && $scpoptions['usecss'] == 1 ) {
 				add_action( 'wp_print_styles', array( &$this, 'scp_addstylesheet' ) );
 			}
 
-			if ( $scpoptions['fbog'] == 1 || $scpoptions['tcmd'] == 1 ) {
+			if ( ( isset( $scpoptions['fbog'] ) && $scpoptions['fbog'] == 1 ) || ( isset( $scpoptions['tcmd'] ) && $scpoptions['tcmd'] == 1 ) ) {
 
 				//Add facebook meta to header
 				add_action( 'wp_head', array( &$this, 'scp_addmeta' ) );
 
 				//remove jetpack OpenGraph (if needed)
-				if ( $scpoptions['fbog'] == 1 ) {
+				if ( isset( $scpoptions['fbog'] ) && $scpoptions['fbog'] == 1 ) {
 
 					$active_plugins = get_option( 'active_plugins', array() );
 
@@ -364,7 +364,7 @@ if ( ! class_exists( 'bit51_scp' )) {
 						break;
 					case 'Facebook':
 						if ( $scpoptions['facebook'] == 1 ) {
-							$buttons .= "<div class=\"scpFacebook\"><fb:like href=\"" . urlencode( $share_url ) . "\" send=\"false\" layout=\"box_count\" width=\"450\" show_faces=\"false\" font=\"arial\"></fb:like></div>\n";
+							$buttons .= "<div class=\"scpFacebook\"><div class=\"fb-like\" data-href=\"" . urldecode( $share_url ) . "\" data-send=\"false\" data-layout=\"box_count\" data-width=\"450\" data-show-faces=\"false\"></div></div>\n";
 						}
 						break;
 					case 'Google':
